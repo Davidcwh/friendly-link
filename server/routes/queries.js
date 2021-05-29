@@ -16,6 +16,7 @@ const pool = new Pool(pgConnectInfo);
 
 const createShortUrl = (req, res) => {
     const { originalUrl } = req.body;
+    
     if(!validUrl.isUri(originalUrl)) {
         return res.status(404).json('Invalid Url Given');
     }
@@ -26,6 +27,7 @@ const createShortUrl = (req, res) => {
     pool.query('INSERT INTO Links (shortCode, originalURL) VALUES ($1, $2)', [shortCode, originalUrl], 
         (error, results) => {
             if(error) {
+                console.log(error);
                 res.status(404).json(error);
             } else {
                 res.status(201).json({ originalUrl, shortCode, shortUrl});
