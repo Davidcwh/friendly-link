@@ -23,7 +23,7 @@ app.use(function(req, res, next) {
   }
 });
 
-require('./routes/queries')(app);
+require('./routes')(app);
 
 const port = 3000;
 app.listen(port, () => {

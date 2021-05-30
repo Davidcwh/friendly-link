@@ -26,7 +26,7 @@ function App() {
             setIsShortenUrl(true);
         }, error => {
             setShowError(true);
-            setErrorMessage(error.response.data);
+            setErrorMessage(error.response && error.response.data);
         });
     };
 
