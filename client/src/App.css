@@ -25,9 +25,13 @@
 }
 
 .shorten-url-text {
-  color: blue;
+  color:royalblue !important;
 }
 
-.copy-button {
-  background-color: lightgreen;
+.error-message {
+  font-size: x-large;
+  background-color: rgb(211, 96, 96);
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 5px;
 }

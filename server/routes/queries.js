@@ -18,7 +18,7 @@ const createShortUrl = (req, res) => {
     const { originalUrl } = req.body;
     
     if(!validUrl.isUri(originalUrl)) {
-        return res.status(404).json('Invalid Url Given');
+        return res.status(404).json('Invalid url given');
     }
 
     // Note that shorUrl is not saved in the db, only the shortCode is.
@@ -28,7 +28,7 @@ const createShortUrl = (req, res) => {
         (error, results) => {
             if(error) {
                 console.log(error);
-                res.status(404).json(error);
+                res.status(404).json('Could not save url given');
             } else {
                 res.status(201).json({ originalUrl, shortCode, shortUrl});
             }

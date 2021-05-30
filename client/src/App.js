@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { Col, Container, Button, Form, Alert } from 'react-bootstrap';
+import { Col, Container, Button, Form, Fade } from 'react-bootstrap';
 import axios from 'axios';
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
             setIsShortenUrl(true);
         }, error => {
             setShowError(true);
-            console.log(error);
+            setErrorMessage(error.response.data);
         });
     };
 
@@ -38,9 +38,10 @@ function App() {
     const copyTextToClipboard = (text) => {
         navigator.clipboard.writeText(text).then(function() {
             setIsTextCopied(true);
+            document.getElementById("urlText").select();
             console.log('Async: Copying to clipboard was successful!');
         }, function(err) {
-        console.error('Async: Could not copy text: ', err);
+            console.error('Async: Could not copy text: ', err);
         });
     };
 
@@ -79,7 +80,7 @@ function App() {
                         <Form.Row>
                             <Col>
                                 <Form.Control 
-                                    className="shorten-url-text"
+                                    className={isShortenUrl ? "shorten-url-text" : ""}
                                     id="urlText"
                                     placeholder="Shorten your link" 
                                     size="lg"
@@ -90,7 +91,6 @@ function App() {
                             <Col sm="auto"> 
                                 {isShortenUrl ? 
                                 <Button 
-                                    bsClass="copy-button"
                                     variant={isTextCopied ? "success" : "primary"} 
                                     size="lg"
                                     onClick={() => copyTextToClipboard(text)}>
@@ -108,9 +108,9 @@ function App() {
                             </Col>
                         </Form.Row>
                     </Form>
-                    {showError && <Alert variant="danger" >
-                                    <p>Unable to shorten that link</p>
-                                </Alert>}
+                    <Fade in={showError} className={"error-message"}>
+                        <div>{`Unable to shorten that link. ${errorMessage}.`}</div>
+                    </Fade>
                 </Container>
             </header>
         </div>
