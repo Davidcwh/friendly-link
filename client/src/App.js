@@ -30,19 +30,23 @@ function App() {
         });
     };
 
+    const copyTextToClipboard = (text) => {
+        navigator.clipboard.writeText(text).then(function() {
+            setIsTextCopied(true);
+            document.getElementById("urlText").select();
+        }, function(err) {
+            console.error('Async: Could not copy text: ', err);
+        });
+    };
+
     const handleTextChange = (text) => {
         setText(text);
         setIsShortenUrl(false);
     };
 
-    const copyTextToClipboard = (text) => {
-        navigator.clipboard.writeText(text).then(function() {
-            setIsTextCopied(true);
-            document.getElementById("urlText").select();
-            console.log('Async: Copying to clipboard was successful!');
-        }, function(err) {
-            console.error('Async: Could not copy text: ', err);
-        });
+    const handleOnButtonClick = (event, callback) => {
+        event.preventDefault();
+        callback();
     };
 
     // Refer button from "Copied!" to "Copy" after 1 second upon click
@@ -91,15 +95,17 @@ function App() {
                             <Col sm="auto"> 
                                 {isShortenUrl ? 
                                 <Button 
+                                    type="submit"
                                     variant={isTextCopied ? "success" : "primary"} 
                                     size="lg"
-                                    onClick={() => copyTextToClipboard(text)}>
+                                    onClick={(e) => handleOnButtonClick(e, () => copyTextToClipboard(text))}>
                                     {isTextCopied ? "Copied!" :"Copy"}
                                 </Button>
                                 : <Button 
+                                    type="submit"
                                     variant="primary" 
                                     size="lg"
-                                    onClick={() => createShortUrl(text)}
+                                    onClick={(e) => handleOnButtonClick(e, () => createShortUrl(text))}
                                     disabled={text === ''}
                                 >
                                     Shorten
