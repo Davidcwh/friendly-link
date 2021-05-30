@@ -1,5 +1,5 @@
 const Pool = require('pg').Pool;
-const validUrl = require('valid-url');
+const validator = require('validator');
 const { generateShortCode } = require('../middlewares/uniqueUrlCode');
 const { shortBaseUrl } = require('../config/constants');
 require('dotenv').config();
@@ -16,15 +16,17 @@ const pool = new Pool(pgConnectInfo);
 
 const createShortUrl = (req, res) => {
     const { originalUrl } = req.body;
-    
-    if(!validUrl.isUri(originalUrl)) {
+
+    if(!validator.isURL(originalUrl)) {
         return res.status(404).json('Invalid url given');
     }
+
+    const hasProtocol = validator.isURL(originalUrl, { require_protocol: true});
 
     // Note that shorUrl is not saved in the db, only the shortCode is.
     const shortCode = generateShortCode();
     const shortUrl = shortBaseUrl + '/' + shortCode;
-    pool.query('INSERT INTO Links (shortCode, originalURL) VALUES ($1, $2)', [shortCode, originalUrl], 
+    pool.query('INSERT INTO Links (shortCode, originalURL, hasProtocol) VALUES ($1, $2, $3)', [shortCode, originalUrl, hasProtocol], 
         (error, results) => {
             if(error) {
                 console.log(error);
@@ -38,7 +40,7 @@ const createShortUrl = (req, res) => {
 
 const getOriginalUrl = (req, res) => {
     const shortCode = req.params.shortcode;
-    pool.query('SELECT originalURL FROM Links WHERE shortCode = $1', [shortCode],
+    pool.query('SELECT originalURL, hasProtocol FROM Links WHERE shortCode = $1', [shortCode],
         (error, results) => {
             if(error) {
                 res.status(404).json(error);
@@ -50,7 +52,11 @@ const getOriginalUrl = (req, res) => {
                 return;
             }
 
-            const originalURL = results.rows[0].originalurl;
+            var originalURL = results.rows[0].originalurl;
+            const hasProtocol = results.rows[0].hasprotocol;
+            if(!hasProtocol) {
+                originalURL = '//' + originalURL;
+            }
             return res.redirect(originalURL);
         }
     );

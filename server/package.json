@@ -71,7 +71,7 @@
     "unpipe": "^1.0.0",
     "util-deprecate": "^1.0.2",
     "utils-merge": "^1.0.1",
-    "valid-url": "^1.0.9",
+    "validator": "^13.6.0",
     "vary": "^1.1.2",
     "xtend": "^4.0.2"
   },
