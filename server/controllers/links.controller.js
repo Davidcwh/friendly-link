@@ -17,6 +17,8 @@ const createShortUrl = (req, res) => {
     Link.create({ shortCode, originalUrl, hasProtocol }, (err, data) => {
         if(err) {
             res.status(500).json('Could not save url given');
+            // console.log(err.stack)
+            // res.status(500).json(err.stack);
         } else {
             const shortUrl = shortBaseUrl + '/' + shortCode;
             res.status(201).json({ originalUrl, shortCode, shortUrl});
@@ -28,7 +30,7 @@ const getOriginalUrl = (req, res) => {
     const shortCode = req.params.shortcode;
     Link.getByShortCode(shortCode, (err, data) => {
         if(err) {
-            res.status(500).json(error);
+            res.status(500).json('Error retrieving original URL');
             return;
         }
 
@@ -42,7 +44,7 @@ const getOriginalUrl = (req, res) => {
         if(!hasProtocol) {
             originalUrl = '//' + originalUrl;
         }
-        return res.redirect(originalUrl);
+        return res.redirect(301, originalUrl);
     })
 };
 
