@@ -1,4 +1,4 @@
 module.exports = {
-    shortBaseUrl: "http://localhost:3000/goto",
+    shortBaseUrl: "http://139.59.216.92:3000/goto",
     shortCodeLength: 8
 }
