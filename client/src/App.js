@@ -20,7 +20,7 @@ function App() {
             }
         }
 
-        axios.post('http://localhost:3000/createShortUrl', params, config)
+        axios.post('http://139.59.216.92:3000/createShortUrl', params, config)
         .then(response => {
             setText(response.data.shortUrl);
             setIsShortenUrl(true);
