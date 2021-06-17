@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+- '12.16'
+addons:
+  ssh_known_hosts: 139.59.216.92
+before_install:
+- openssl aes-256-cbc -K $encrypted_0ddd2445e49f_key -iv $encrypted_0ddd2445e49f_iv
+  -in travis_rsa.enc -out travis_rsa -d
+- chmod 600 travis_rsa
+- mv travis_rsa ~/.ssh/id_rsa
+- cd client
+install:
+- npm install
+script:
+- 'true'
+after_success:
+- npm run build
+- cd ..
+- bash ./deploy.sh
