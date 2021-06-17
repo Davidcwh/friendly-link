@@ -79,7 +79,7 @@ function App() {
         <div className="App">
             <header className="App-header">
                 <Container>
-                    <div className="title">Friendly-Link</div>
+                    <div className="title">Friendly-Link Test</div>
                     <Form>
                         <Form.Row>
                             <Col>
