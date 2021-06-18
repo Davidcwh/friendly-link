@@ -1,6 +1,6 @@
 set -xe
 
-if [ $TRAVIS_BRANCH == 'master' ] ; then
+if [ $TRAVIS_BRANCH == 'main' ] ; then
   echo "Deploying to droplpet"
   eval "$(ssh-agent -s)"
   ssh-add ~/.ssh/id_rsa
