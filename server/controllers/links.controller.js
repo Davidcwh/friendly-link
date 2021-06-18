@@ -16,9 +16,9 @@ const createShortUrl = (req, res) => {
     const shortCode = generateShortCode();
     Link.create({ shortCode, originalUrl, hasProtocol }, (err, data) => {
         if(err) {
-            // res.status(500).json('Could not save url given');
+            res.status(500).json('Could not save url given');
             // console.log(err.stack)
-            res.status(500).json(err.stack);
+            // res.status(500).json(err.stack);
         } else {
             const shortUrl = shortBaseUrl + '/' + shortCode;
             res.status(201).json({ originalUrl, shortCode, shortUrl});
