@@ -7,12 +7,6 @@
   pointer-events: none;
 }
 
-.title {
-  font-size: xxx-large;
-  color: white;
-  margin: 10px;
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -22,16 +16,4 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.shorten-url-text {
-  color:royalblue !important;
-}
-
-.error-message {
-  font-size: x-large;
-  background-color: rgb(211, 96, 96);
-  border-radius: 5px;
-  margin-top: 10px;
-  padding: 5px;
 }
