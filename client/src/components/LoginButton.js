@@ -11,7 +11,9 @@ const LoginButton = () => {
             className="buttonContainer"
             variant="outline-light" 
             onClick={() => loginWithRedirect({
-                display: "page"
+                appState: {
+                    returnTo: 'dashboard'
+                }
             })}>
             Login
         </Button>
