@@ -12,6 +12,9 @@ const SignupButton = () => {
             variant="outline-light" 
             onClick={() => loginWithRedirect({
                 screen_hint: "signup",
+                appState: {
+                    returnTo: 'dashboard'
+                }
             })}>
             Signup
         </Button>

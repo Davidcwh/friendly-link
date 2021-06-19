@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Spinner, Button } from 'react-bootstrap';
+import { Navbar, Spinner } from 'react-bootstrap';
 import { Route } from 'react-router';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from './LoginButton';
