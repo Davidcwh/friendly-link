@@ -9,5 +9,5 @@ if [ $TRAVIS_BRANCH == 'main' ] ; then
 
   ssh david@139.59.216.92 'pm2 restart all'
 else
-  echo "Not deploying, since the branch isn't master."
+  echo "Not deploying, since the branch isn't main."
 fi
