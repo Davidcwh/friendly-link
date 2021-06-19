@@ -7,7 +7,9 @@ const TopBar = () => {
     return (
         <Navbar 
             expand="lg"
-            fixed="top">
+            fixed="top"
+            variant="dark">
+            <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                 <LoginButton/>
                 <SignupButton/>
