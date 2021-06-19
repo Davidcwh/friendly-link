@@ -1,9 +1,27 @@
 import React from 'react';
-import { Navbar, Spinner } from 'react-bootstrap';
+import { Navbar, Spinner, Button } from 'react-bootstrap';
+import { Route } from 'react-router';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from './LoginButton';
 import SignupButton from './SignupButton';
 import LogoutButton from './LogoutButton';
+import GoToDashboardButton from './GoToDashboardButton';
+
+const LoggedInButtons = () => (
+    <>
+        <Route exact path="/">
+            <GoToDashboardButton/>
+        </Route>
+        <LogoutButton/>
+    </>
+);
+
+const LoggedOutButtons = () => (
+    <>
+        <LoginButton/>
+        <SignupButton/>
+    </>
+)
 
 const TopBar = () => {
     const { isAuthenticated, isLoading } = useAuth0();
@@ -19,11 +37,8 @@ const TopBar = () => {
                     isLoading 
                         ? <Spinner animation="border" variant="light" style={{ margin: '8px'}}/>
                         : (isAuthenticated 
-                            ? <LogoutButton/>
-                            : <>
-                                <LoginButton/>
-                                <SignupButton/>
-                            </>)
+                            ? <LoggedInButtons/> 
+                            : <LoggedOutButtons/>)
                 }
             </Navbar.Collapse>
         </Navbar>
