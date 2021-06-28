@@ -10,6 +10,7 @@ const ShortenUrlBar = () => {
     const [isTextCopied, setIsTextCopied] = useState(false);
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const serverUrl = process.env.REACT_APP_SERVER_URL;
 
     const createShortUrl = (url) => {
         const params = new URLSearchParams();
@@ -21,7 +22,7 @@ const ShortenUrlBar = () => {
             }
         }
 
-        axios.post('http://139.59.216.92:3000/createShortUrl', params, config)
+        axios.post(`${serverUrl}/createShortUrl`, params, config)
         .then(response => {
             setText(response.data.shortUrl);
             setIsShortenUrl(true);
