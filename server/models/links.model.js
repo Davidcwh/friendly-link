@@ -4,18 +4,31 @@ function Link(link) {
     this.shortCode = link.shortCode;
     this.originalUrl = link.originalUrl;
     this.hasProtocol = link.hasProtocol;
+    this.userId = link.userId;
 }
 
 Link.create = (link, callback) => {
-    db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol) VALUES ($1, $2, $3)', [link.shortCode, link.originalUrl, link.hasProtocol], 
-        (error, results) => {
-            if(error) {
-                callback(error, null);
-            } else {
-                callback(null, results);
+    if(link.userId === undefined) {
+        db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol) VALUES ($1, $2, $3)', [link.shortCode, link.originalUrl, link.hasProtocol], 
+            (error, results) => {
+                if(error) {
+                    callback(error, null);
+                } else {
+                    callback(null, results);
+                }
             }
-        }
-    );
+        );
+    } else {
+        db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol, userId) VALUES ($1, $2, $3, $4)', [link.shortCode, link.originalUrl, link.hasProtocol, link.userId], 
+            (error, results) => {
+                if(error) {
+                    callback(error, null);
+                } else {
+                    callback(null, results);
+                }
+            }
+        );
+    }
 };
 
 Link.getByShortCode = (shortCode, callback) => {
