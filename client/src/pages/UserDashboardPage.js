@@ -1,8 +1,6 @@
 import './UserDashboardPage.css';
 import React from 'react';
-import { withAuthenticationRequired } from '@auth0/auth0-react';
 import TopBar from '../components/TopBar';
-import LoadingPage from './LoadingPage';
 
 const UserDashboardPage = () => {
     return (
@@ -15,6 +13,4 @@ const UserDashboardPage = () => {
     )
 }
 
-export default withAuthenticationRequired(UserDashboardPage, {
-    onRedirecting: () => <LoadingPage/>
-});
+export default UserDashboardPage;

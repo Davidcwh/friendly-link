@@ -1,7 +1,7 @@
 const Link = require('../models/links.model');
 const validator = require('validator');
 const { generateShortCode } = require('../middlewares/uniqueUrlCode');
-const { shortBaseUrl } = require('../config/constants');
+const shortBaseUrl = process.env.SERVER_URL;
 
 const createShortUrl = (req, res) => {
     const { originalUrl } = req.body;

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './ShortenUrlBar.css';
 import { Col, Container, Button, Form, Fade } from 'react-bootstrap';
-import axios from 'axios';
-
+import API from '../util/API'
 
 const ShortenUrlBar = () => {
     const [ text, setText ] = useState('');
@@ -11,24 +10,15 @@ const ShortenUrlBar = () => {
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const createShortUrl = (url) => {
-        const params = new URLSearchParams();
-        params.append('originalUrl', url);
-
-        const config = {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            }
-        }
-
-        axios.post('http://139.59.216.92:3000/createShortUrl', params, config)
-        .then(response => {
-            setText(response.data.shortUrl);
-            setIsShortenUrl(true);
-        }, error => {
-            setShowError(true);
-            setErrorMessage(error.response && error.response.data);
-        });
+    const createShortUrl =  (url) => {
+        API.createShortUrl(url)
+            .then(response => {
+                setText(response.data.shortUrl);
+                setIsShortenUrl(true);
+            }, error => {
+                setShowError(true);
+                setErrorMessage(error.response && error.response.data);
+            });
     };
 
     const copyTextToClipboard = (text) => {
