@@ -26,9 +26,14 @@ const createUser = (userId, email) => {
     return axios.post(`${serverUrl}/createUser`, params, config)
 }
 
+const getUserLinks = (userId) => {
+    return axios.get(`${serverUrl}/getUserLinks/${userId}`, config);
+}
+
 const API = {
     createShortUrl,
-    createUser
+    createUser,
+    getUserLinks
 }
 
 export default API;

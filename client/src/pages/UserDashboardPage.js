@@ -8,18 +8,37 @@ const UserDashboardPage = () => {
     const { user } = useAuth0();
     const { sub, email } = user;
     const is_first_login = user['http://localhost:3000/is_first_login'];
-    const [createUserStatus, setCreateUserStatus] = useState('pending')
+    const [createUserStatus, setCreateUserStatus] = useState('pending');
+    const [userLinks, setUserLinks] = useState([]);
 
     useEffect(() => {
         if(is_first_login) {
-            API.createUser(sub, email)
-                .then(response => {
-                    setCreateUserStatus('success')
-                }, error => {
-                    setCreateUserStatus('fail')
-                })
+            createUser();
         }
+        getUserLinks();
+
     }, []);
+
+    const createUser = () => {
+        API.createUser(sub, email)
+            .then(response => {
+                setCreateUserStatus('success')
+            }, error => {
+                setCreateUserStatus('fail')
+            })
+    }
+
+    const getUserLinks = () => {
+        API.getUserLinks(sub)
+            .then(response => {
+                const originalLinks = response.data.map((link) => {
+                    return link.originalurl
+                }) 
+                setUserLinks(originalLinks)
+            }, error => {
+                console.log(error)
+            })
+    }
 
     return (
         <div className="Dashboard">
@@ -27,7 +46,11 @@ const UserDashboardPage = () => {
                 <TopBar/>
                 USER DASHBOARD
                 <br/>
-                {createUserStatus}
+                Your links:
+                <br/>
+                {userLinks.map((link, index) => {
+                    return <div key={index}>{link}</div>
+                })}
             </header>
         </div>
     )
