@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ShortenUrlBar.css';
 import { Col, Container, Button, Form, Fade } from 'react-bootstrap';
 import API from '../util/API'
+import { useAuth0 } from '@auth0/auth0-react';
 
 const ShortenUrlBar = () => {
     const [ text, setText ] = useState('');
@@ -9,9 +10,12 @@ const ShortenUrlBar = () => {
     const [isTextCopied, setIsTextCopied] = useState(false);
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const { isAuthenticated, user } = useAuth0();
 
     const createShortUrl =  (url) => {
-        API.createShortUrl(url)
+        const userId = isAuthenticated ? user.sub : null;
+
+        API.createShortUrl(url, userId)
             .then(response => {
                 setText(response.data.shortUrl);
                 setIsShortenUrl(true);

@@ -3,8 +3,6 @@ const Users = require('../models/users.model');
 
 const createUser = (req, res) => {
     const { userId, email } = req.body;
-    console.log(userId);
-    console.log(email);
 
     User.create({ userId, email }, (err, data) => {
         if(err) {

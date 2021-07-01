@@ -1,21 +1,34 @@
 import axios from 'axios';
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 
-const createShortUrl = (url) => {
+const config = {
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+}
+
+const createShortUrl = (url, userId) => {
     const params = new URLSearchParams();
     params.append('originalUrl', url);
 
-    const config = {
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
+    if(userId !== null) {
+        params.append('userId', userId);
     }
 
     return axios.post(`${serverUrl}/createShortUrl`, params, config)
 };
 
+const createUser = (userId, email) => {
+    const params = new URLSearchParams();
+    params.append('userId', userId);
+    params.append('email', email);
+
+    return axios.post(`${serverUrl}/createUser`, params, config)
+}
+
 const API = {
-    createShortUrl
+    createShortUrl,
+    createUser
 }
 
 export default API;
