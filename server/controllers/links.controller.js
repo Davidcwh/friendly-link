@@ -49,7 +49,28 @@ const getOriginalUrl = (req, res) => {
     })
 };
 
+const getUserLinks = (req, res) => {
+    const userId = req.params.userid;
+    Link.getByUserId(userId, (err, data) => {
+        if(err) {
+            res.status(500).json('Error retrieving user links');
+            return;
+        }
+
+        const results = data.rows.map((row) => {
+            const shortUrl = shortBaseUrl + '/' + row.shortcode;
+            return {
+                shortUrl,
+                ...row
+            }
+        })
+
+        res.status(200).json(results);
+    })
+}
+
 module.exports = {
     createShortUrl,
-    getOriginalUrl
+    getOriginalUrl,
+    getUserLinks
 }

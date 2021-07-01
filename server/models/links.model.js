@@ -43,4 +43,16 @@ Link.getByShortCode = (shortCode, callback) => {
     );
 };
 
+Link.getByUserId = (userId, callback) => {
+    db.query('SELECT originalUrl, shortCode FROM Links WHERE userId = $1', [userId],
+        (error, results) => {
+            if(error) {
+                callback(error, null);
+            } else {
+                callback(null, results);
+            }
+        }
+    );
+};
+
 module.exports = Link;
