@@ -1,9 +1,10 @@
 .Dashboard {
-    text-align: center;
-  }
-  
+  background-color: #282c34;
+  color: white;
+}
+    
 .Dashboard-header {
-    background-color: #282c34;
+    text-align: center;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -11,4 +12,14 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
+}
+
+.bar-container {
+  width: 100%;
+  margin-top: auto;
+}
+
+.links-container {
+  /* width: 100%;
+  padding: 0 100; */
 }

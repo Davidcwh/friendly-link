@@ -1,7 +1,10 @@
 import './UserDashboardPage.css';
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
+import { Row, Col } from 'react-bootstrap';
 import TopBar from '../components/TopBar';
+import LinksDashboard from '../components/LinksDashboard';
+import ShortenUrlBar from '../components/ShortenUrlBar';
 import API from '../util/API';
 
 const UserDashboardPage = () => {
@@ -34,25 +37,31 @@ const UserDashboardPage = () => {
                 const originalLinks = response.data.map((link) => {
                     return link.originalurl
                 }) 
-                setUserLinks(originalLinks)
+                // console.log(response.data)
+                setUserLinks(response.data)
             }, error => {
                 console.log(error)
             })
     }
 
     return (
+        <>
+        
         <div className="Dashboard">
+            <TopBar/>
             <header className="Dashboard-header">
-                <TopBar/>
-                USER DASHBOARD
-                <br/>
-                Your links:
-                <br/>
-                {userLinks.map((link, index) => {
-                    return <div key={index}>{link}</div>
-                })}
+                
+                <Row className="bar-container">
+                    <ShortenUrlBar/>
+                </Row>
+                
+                <Row className="links-container">
+                    <LinksDashboard userLinks={userLinks}/>
+                </Row>
+                
             </header>
         </div>
+        </>
     )
 }
 

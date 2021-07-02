@@ -4,7 +4,7 @@ import { Col, Container, Button, Form, Fade } from 'react-bootstrap';
 import API from '../util/API'
 import { useAuth0 } from '@auth0/auth0-react';
 
-const ShortenUrlBar = () => {
+const ShortenUrlBar = ({ title }) => {
     const [ text, setText ] = useState('');
     const [isShortenUrl, setIsShortenUrl] = useState(false);
     const [isTextCopied, setIsTextCopied] = useState(false);
@@ -73,7 +73,7 @@ const ShortenUrlBar = () => {
 
     return (
         <Container>
-            <div className="title">Friendly-Link</div>
+            <div className="title">{title}</div>
             <Form>
                 <Form.Row>
                     <Col>

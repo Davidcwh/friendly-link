@@ -6,9 +6,9 @@ import TopBar from '../components/TopBar';
 const LandingPage = () => {
     return (
         <div className="Landing">
+            <TopBar/>
             <header className="Landing-header">
-                <TopBar/>
-                <ShortenUrlBar/>
+                <ShortenUrlBar title="Friendly-Link"/>
             </header>
         </div>
     )

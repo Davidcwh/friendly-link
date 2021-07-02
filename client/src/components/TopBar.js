@@ -1,17 +1,12 @@
 import React from 'react';
 import { Navbar, Spinner } from 'react-bootstrap';
-import { Route } from 'react-router';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from './LoginButton';
 import SignupButton from './SignupButton';
 import LogoutButton from './LogoutButton';
-import GoToDashboardButton from './GoToDashboardButton';
 
-const LoggedInButtons = () => (
+const LoggedInButtons = ({ email }) => (
     <>
-        <Route exact path="/">
-            <GoToDashboardButton/>
-        </Route>
         <LogoutButton/>
     </>
 );
@@ -24,20 +19,24 @@ const LoggedOutButtons = () => (
 )
 
 const TopBar = () => {
-    const { isAuthenticated, isLoading } = useAuth0();
+    const { isAuthenticated, isLoading, user } = useAuth0();
+    const email = isAuthenticated ? user.email : '';
 
     return (
         <Navbar 
             expand="lg"
-            fixed="top"
             variant="dark">
+            <Navbar.Brand href="/">Friendly-Link</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                 {
                     isLoading 
                         ? <Spinner animation="border" variant="light" style={{ margin: '8px'}}/>
                         : (isAuthenticated 
-                            ? <LoggedInButtons/> 
+                            ? <>
+                                <div>{`Logged in as: ${email}`}</div>
+                                <LoggedInButtons email={email}/>
+                             </>
                             : <LoggedOutButtons/>)
                 }
             </Navbar.Collapse>
