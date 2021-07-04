@@ -30,6 +30,16 @@ Click.getTotalClickCount = (shortCode, callback) => {
     );
 };
 
-
+Click.getClickCountByDate = (shortCode, callback) => {
+    db.query('SELECT clickDate::text, count(*) FROM Clicks WHERE shortCode = $1 GROUP BY clickDate', [shortCode],
+        (error, results) => {
+            if(error) {
+                callback(error, null);
+            } else {
+                callback(null, results);
+            }
+        }
+    );
+};
 
 module.exports = Click;
