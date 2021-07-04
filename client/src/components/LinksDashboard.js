@@ -31,6 +31,8 @@ const LinksDashboard = ({ userLinks }) => {
                                     {link.shortUrl}
                                     <br/>
                                     {link.originalurl}
+                                    <br/>
+                                    {link.datecreated}
                                 </Tab.Pane>
                             )
                         })}

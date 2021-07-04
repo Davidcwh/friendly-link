@@ -9,7 +9,8 @@ function Link(link) {
 
 Link.create = (link, callback) => {
     if(link.userId === undefined) {
-        db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol) VALUES ($1, $2, $3)', [link.shortCode, link.originalUrl, link.hasProtocol], 
+        db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol) VALUES ($1, $2, $3)', 
+            [link.shortCode, link.originalUrl, link.hasProtocol], 
             (error, results) => {
                 if(error) {
                     callback(error, null);
@@ -19,7 +20,8 @@ Link.create = (link, callback) => {
             }
         );
     } else {
-        db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol, userId) VALUES ($1, $2, $3, $4)', [link.shortCode, link.originalUrl, link.hasProtocol, link.userId], 
+        db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol, userId) VALUES ($1, $2, $3, $4)', 
+            [link.shortCode, link.originalUrl, link.hasProtocol, link.userId], 
             (error, results) => {
                 if(error) {
                     callback(error, null);
@@ -44,7 +46,19 @@ Link.getByShortCode = (shortCode, callback) => {
 };
 
 Link.getByUserId = (userId, callback) => {
-    db.query('SELECT originalUrl, shortCode FROM Links WHERE userId = $1', [userId],
+    db.query('SELECT originalUrl, shortCode, dateCreated::text FROM Links WHERE userId = $1', [userId],
+        (error, results) => {
+            if(error) {
+                callback(error, null);
+            } else {
+                callback(null, results);
+            }
+        }
+    );
+};
+
+Link.addClick = (shortCode, callback) => {
+    db.query('INSERT INTO Clicks (shortCode) VALUES ($1)', [shortCode],
         (error, results) => {
             if(error) {
                 callback(error, null);

@@ -45,7 +45,13 @@ const getOriginalUrl = (req, res) => {
         if(!hasProtocol) {
             originalUrl = '//' + originalUrl;
         }
-        return res.redirect(301, originalUrl);
+
+        Link.addClick(shortCode, (err, data) => {
+            if(err) {
+                console.error(err.stack)
+            }
+        })
+        return res.redirect(302, originalUrl);
     })
 };
 
