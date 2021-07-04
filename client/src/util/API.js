@@ -30,10 +30,15 @@ const getUserLinks = (userId) => {
     return axios.get(`${serverUrl}/getUserLinks/${userId}`, config);
 }
 
+const getTotalClickCount = (shortCode) => {
+    return axios.get(`${serverUrl}/getTotalClickCount/${shortCode}`, config);
+}
+
 const API = {
     createShortUrl,
     createUser,
-    getUserLinks
+    getUserLinks,
+    getTotalClickCount
 }
 
 export default API;
