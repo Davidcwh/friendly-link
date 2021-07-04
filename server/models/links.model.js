@@ -5,6 +5,7 @@ function Link(link) {
     this.originalUrl = link.originalUrl;
     this.hasProtocol = link.hasProtocol;
     this.userId = link.userId;
+    this.dateCreated = link.dateCreated;
 }
 
 Link.create = (link, callback) => {
@@ -47,18 +48,6 @@ Link.getByShortCode = (shortCode, callback) => {
 
 Link.getByUserId = (userId, callback) => {
     db.query('SELECT originalUrl, shortCode, dateCreated::text FROM Links WHERE userId = $1', [userId],
-        (error, results) => {
-            if(error) {
-                callback(error, null);
-            } else {
-                callback(null, results);
-            }
-        }
-    );
-};
-
-Link.addClick = (shortCode, callback) => {
-    db.query('INSERT INTO Clicks (shortCode) VALUES ($1)', [shortCode],
         (error, results) => {
             if(error) {
                 callback(error, null);

@@ -1,4 +1,5 @@
 const Link = require('../models/links.model');
+const Click = require('../models/clicks.model');
 const validator = require('validator');
 const { generateShortCode } = require('../middlewares/uniqueUrlCode');
 const shortBaseUrl = process.env.SERVER_URL;
@@ -46,7 +47,7 @@ const getOriginalUrl = (req, res) => {
             originalUrl = '//' + originalUrl;
         }
 
-        Link.addClick(shortCode, (err, data) => {
+        Click.create(shortCode, (err, data) => {
             if(err) {
                 console.error(err.stack)
             }
