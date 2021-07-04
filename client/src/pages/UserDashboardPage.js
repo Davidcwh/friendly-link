@@ -52,7 +52,7 @@ const UserDashboardPage = () => {
             <header className="Dashboard-header">
                 
                 <Row className="bar-container">
-                    <ShortenUrlBar/>
+                    <ShortenUrlBar title="User Dashboard"/>
                 </Row>
                 
                 <Row className="links-container">
