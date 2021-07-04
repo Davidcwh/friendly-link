@@ -34,11 +34,16 @@ const getTotalClickCount = (shortCode) => {
     return axios.get(`${serverUrl}/getTotalClickCount/${shortCode}`, config);
 }
 
+const getClickCountByDate = (shortCode) => {
+    return axios.get(`${serverUrl}/getClickCountByDate/${shortCode}`, config);
+}
+
 const API = {
     createShortUrl,
     createUser,
     getUserLinks,
-    getTotalClickCount
+    getTotalClickCount,
+    getClickCountByDate
 }
 
 export default API;

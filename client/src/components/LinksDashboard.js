@@ -3,14 +3,22 @@ import { Tab, Row, Col, Nav, Tabs } from 'react-bootstrap';
 import API from '../util/API';
 
 const LinkInfo = ({ link, index }) => {
-    const [clickCount, setClickCount] = useState(0);
+    const [totalClickCount, setTotalClickCount] = useState(0);
+    const [clickCountByDate, setClickCountByDate] = useState([]);
 
     useEffect(() => {
         API.getTotalClickCount(link.shortcode)
             .then(response => {
-                setClickCount(response.data.clickCount);
+                setTotalClickCount(response.data.clickCount);
             }, error => {
                 console.log(error)
+            });
+
+        API.getClickCountByDate(link.shortcode)
+            .then(response => {
+                setClickCountByDate(response.data)
+            }, error => {
+                console.log(error);
             })
     }, [])
 
@@ -23,7 +31,18 @@ const LinkInfo = ({ link, index }) => {
             <br/>
             {`Date Created: ${link.datecreated}`}
             <br/>
-            {`Number Of Clicks: ${clickCount}`}
+            {`Total Number Of Clicks: ${totalClickCount}`}
+            {totalClickCount > 0 && 
+                <>
+                <br/>
+                Number Of Clicks By Date:
+                <br/>
+                {clickCountByDate.map((click, index) => {
+                    return <div>{`${click.clickdate} - ${click.count} clicks`}</div>
+                })}
+                </>
+            }
+            
         </Tab.Pane>
     ) 
 }
