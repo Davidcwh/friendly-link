@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Tab, Row, Col, Nav, Tabs } from 'react-bootstrap';
+import LinkChart from './LinkChart';
 import API from '../util/API';
 
 const LinkInfo = ({ link, index }) => {
@@ -32,7 +33,7 @@ const LinkInfo = ({ link, index }) => {
             {`Date Created: ${link.datecreated}`}
             <br/>
             {`Total Number Of Clicks: ${totalClickCount}`}
-            {totalClickCount > 0 && 
+            {/* {totalClickCount > 0 && 
                 <>
                 <br/>
                 Number Of Clicks By Date:
@@ -41,7 +42,9 @@ const LinkInfo = ({ link, index }) => {
                     return <div>{`${click.clickdate} - ${click.count} clicks`}</div>
                 })}
                 </>
-            }
+            } */}
+
+            <LinkChart data={clickCountByDate} dateCreated={link.datecreated}/>
             
         </Tab.Pane>
     ) 
