@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Tab, Row, Col, Nav, Tabs } from 'react-bootstrap';
 import LinkChart from './LinkChart';
 import API from '../util/API';
+import Crypto from '../util/Crypto';
 
 const LinkInfo = ({ link, index }) => {
     const [totalClickCount, setTotalClickCount] = useState(0);
@@ -23,7 +24,6 @@ const LinkInfo = ({ link, index }) => {
             })
     }, [])
 
-
     return (
         <Tab.Pane eventKey={link.shortcode} key={index} >
             {link.shortUrl}
@@ -33,16 +33,6 @@ const LinkInfo = ({ link, index }) => {
             {`Date Created: ${link.datecreated}`}
             <br/>
             {`Total Number Of Clicks: ${totalClickCount}`}
-            {/* {totalClickCount > 0 && 
-                <>
-                <br/>
-                Number Of Clicks By Date:
-                <br/>
-                {clickCountByDate.map((click, index) => {
-                    return <div>{`${click.clickdate} - ${click.count} clicks`}</div>
-                })}
-                </>
-            } */}
 
             <LinkChart data={clickCountByDate} dateCreated={link.datecreated}/>
             
@@ -51,6 +41,22 @@ const LinkInfo = ({ link, index }) => {
 }
 
 const LinksDashboard = ({ userLinks }) => {
+
+    const link = userLinks[0];
+
+    // Crypto.encrypt('password', link.shortcode)
+    //     .then(({ cipherText, iv }) => {
+    //         console.log(`${link.shortUrl}: ciphertext: ${cipherText}, iv: ${iv}`);
+
+    //         Crypto.decrypt('password1', link.shortcode, cipherText, iv)
+    //             .then(result => {
+    //                 console.log(`Decryption success! password was ${result}`)
+    //             }, error => {
+    //                 console.log('Incorrect password :(')
+    //             })
+    //     }, error => {
+    //         console.log(error)
+    //     })
 
     return (
         <Tab.Container 
