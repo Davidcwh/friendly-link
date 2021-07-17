@@ -5,7 +5,7 @@ const { generateShortCode } = require('../middlewares/uniqueUrlCode');
 const shortBaseUrl = process.env.SERVER_URL;
 
 const createShortUrl = (req, res) => {
-    const { originalUrl, userId } = req.body;
+    const { originalUrl, userId, encryption } = req.body;
 
     if(!validator.isURL(originalUrl)) {
         return res.status(500).json('Invalid url given');
@@ -15,7 +15,7 @@ const createShortUrl = (req, res) => {
 
     // Note that shorUrl is not saved in the db, only the shortCode is.
     const shortCode = generateShortCode();
-    Link.create({ shortCode, originalUrl, hasProtocol, userId }, (err, data) => {
+    Link.create({ shortCode, originalUrl, hasProtocol, userId, encryption }, (err, data) => {
         if(err) {
             res.status(500).json('Could not save url given');
             // console.log(err.stack)
