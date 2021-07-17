@@ -7,12 +7,16 @@ const config = {
     }
 }
 
-const createShortUrl = (url, userId) => {
+const createShortUrl = (url, userId, encryption) => {
     const params = new URLSearchParams();
     params.append('originalUrl', url);
 
     if(userId !== null) {
         params.append('userId', userId);
+    }
+
+    if(encryption !== null) {
+        params.append('encryption', JSON.stringify(encryption))
     }
 
     return axios.post(`${serverUrl}/createShortUrl`, params, config)

@@ -11,7 +11,10 @@ CREATE TABLE Links (
     hasProtocol boolean,
     dateCreated date DEFAULT CURRENT_DATE,
     userId      text REFERENCES Users(userId)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+    cipherText  text,
+    iv          text,
+    salt        text
 );
 
 CREATE TABLE Clicks (

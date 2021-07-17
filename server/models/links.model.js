@@ -34,8 +34,8 @@ Link.create = (link, callback) => {
             }
         );
     } else { // user link that is locked
-        db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol, userId, cipherText, iv) VALUES ($1, $2, $3, $4, $5, $6)', 
-            [link.shortCode, link.originalUrl, link.hasProtocol, link.userId, link.encryption.cipherText, link.encryption.iv], 
+        db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol, userId, cipherText, iv, salt) VALUES ($1, $2, $3, $4, $5, $6, $7)', 
+            [link.shortCode, link.originalUrl, link.hasProtocol, link.userId, link.encryption.cipherText, link.encryption.iv, link.encryption.salt], 
             (error, results) => {
                 if(error) {
                     callback(error, null);

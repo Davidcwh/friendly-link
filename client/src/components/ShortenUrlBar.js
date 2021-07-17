@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './ShortenUrlBar.css';
 import { Col, Container, Button, Form, Fade } from 'react-bootstrap';
-import API from '../util/API'
+import API from '../util/API';
+import Crypto from '../util/Crypto';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const ShortenUrlBar = ({ title }) => {
@@ -10,14 +11,25 @@ const ShortenUrlBar = ({ title }) => {
     const [isTextCopied, setIsTextCopied] = useState(false);
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [password, setPassword] = useState('');
     const { isAuthenticated, user } = useAuth0();
 
-    const createShortUrl =  (url) => {
+    const createShortUrl = async (url) => {
         const userId = isAuthenticated ? user.sub : null;
 
-        API.createShortUrl(url, userId)
+        let encryption = null;
+        if(isAuthenticated && password !== '') {
+            encryption = await Crypto.encrypt('password')
+                                    .catch(error => {
+                                        setShowError(true);
+                                        setErrorMessage('Could not encrypt password :(');
+                                    })
+        }
+
+        API.createShortUrl(url, userId, encryption)
             .then(response => {
                 setText(response.data.shortUrl);
+                setPassword('');
                 setIsShortenUrl(true);
             }, error => {
                 setShowError(true);
@@ -75,38 +87,51 @@ const ShortenUrlBar = ({ title }) => {
         <Container>
             <div className="title">{title}</div>
             <Form>
-                <Form.Row>
-                    <Col>
+                <Form.Group>
+                    <Form.Row>
+                        <Col>
+                            <Form.Control 
+                                className={isShortenUrl ? "shorten-url-text" : ""}
+                                id="urlText"
+                                placeholder="Shorten your link" 
+                                size="lg"
+                                value={text}
+                                onChange={e => handleTextChange(e.target.value)}
+                            />
+                        </Col>
+                        <Col sm="auto"> 
+                            {isShortenUrl ? 
+                            <Button 
+                                type="submit"
+                                variant={isTextCopied ? "success" : "primary"} 
+                                size="lg"
+                                onClick={(e) => handleOnButtonClick(e, () => copyTextToClipboard(text))}>
+                                {isTextCopied ? "Copied!" :"Copy"}
+                            </Button>
+                            : <Button 
+                                type="submit"
+                                variant="primary" 
+                                size="lg"
+                                onClick={(e) => handleOnButtonClick(e, () => createShortUrl(text))}
+                                disabled={text === ''}
+                            >
+                                Shorten
+                            </Button>
+                            }
+                        </Col>
+                    </Form.Row>
+                </Form.Group>
+
+               {isAuthenticated && <Form.Row>
+                    <Col sm={5}>
                         <Form.Control 
-                            className={isShortenUrl ? "shorten-url-text" : ""}
-                            id="urlText"
-                            placeholder="Shorten your link" 
-                            size="lg"
-                            value={text}
-                            onChange={e => handleTextChange(e.target.value)}
+                            id="optionalPassword"
+                            placeholder="Password (Optional)" 
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
                         />
                     </Col>
-                    <Col sm="auto"> 
-                        {isShortenUrl ? 
-                        <Button 
-                            type="submit"
-                            variant={isTextCopied ? "success" : "primary"} 
-                            size="lg"
-                            onClick={(e) => handleOnButtonClick(e, () => copyTextToClipboard(text))}>
-                            {isTextCopied ? "Copied!" :"Copy"}
-                        </Button>
-                        : <Button 
-                            type="submit"
-                            variant="primary" 
-                            size="lg"
-                            onClick={(e) => handleOnButtonClick(e, () => createShortUrl(text))}
-                            disabled={text === ''}
-                        >
-                            Shorten
-                        </Button>
-                        }
-                    </Col>
-                </Form.Row>
+                </Form.Row>}
             </Form>
             <Fade in={showError} className={"error-message"}>
                 <div>{`Unable to shorten that link. ${errorMessage}.`}</div>

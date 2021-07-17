@@ -15,6 +15,10 @@ const getRandomIv = async () => {
     return await window.crypto.getRandomValues(new Uint8Array(12));
 }
 
+const getRandomSalt = async () => {
+  return await window.crypto.getRandomValues(new Uint8Array(16));
+}
+
 const generateIndexDict = (a) => {
     let result = {};
     for (let i = 0; i < a.length; i++) {
@@ -142,22 +146,23 @@ const deriveKey = async (password, shortCode) => {
 // Encrypt the password using AES-GCM with key derived from password itself.
 // Takes in the salt which is derived from the url shortcode.
 // IV is randomly generated and returned together with the encrypted binary.
-const encrypt = async (password, shortCode) => {
-    const key = await deriveKey(password, shortCode);
-    const iv = await getRandomIv();
-    const encryptedBinary = await window.crypto.subtle.encrypt(
-        {
-            name: "AES-GCM",
-            iv
-          },
-          key,
-          asciiToBinary(password)
-    );
-    return { cipherText: binaryToBase64(new Uint8Array(encryptedBinary)), iv: binaryToBase64(iv)};
+const encrypt = async (password) => {
+  const salt = await getRandomSalt();
+  const key = await deriveKey(password, salt);
+  const iv = await getRandomIv();
+  const encryptedBinary = await window.crypto.subtle.encrypt(
+      {
+          name: "AES-GCM",
+          iv
+        },
+        key,
+        asciiToBinary(password)
+  );
+  return { cipherText: binaryToBase64(new Uint8Array(encryptedBinary)), iv: binaryToBase64(iv), salt: binaryToBase64(salt)};
 }
 
-const decrypt = async (password, shortCode, cipherText, iv) => {
-    const key = await deriveKey(password, shortCode);
+const decrypt = async (password, cipherText, iv, salt) => {
+    const key = await deriveKey(password, base64ToBinary(salt));
     const decryptedBinary = await window.crypto.subtle.decrypt(
         {
           name: "AES-GCM",
@@ -172,7 +177,6 @@ const decrypt = async (password, shortCode, cipherText, iv) => {
 
 
 const Crypto = {
-    deriveKey,
     encrypt,
     decrypt
 };
