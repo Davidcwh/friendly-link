@@ -48,7 +48,7 @@ Link.create = (link, callback) => {
 };
 
 Link.getByShortCode = (shortCode, callback) => {
-    db.query('SELECT originalUrl, hasProtocol FROM Links WHERE shortCode = $1', [shortCode],
+    db.query('SELECT originalUrl, hasProtocol, cipherText, iv, salt FROM Links WHERE shortCode = $1', [shortCode],
         (error, results) => {
             if(error) {
                 callback(error, null);

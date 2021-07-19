@@ -41,23 +41,6 @@ const LinkInfo = ({ link, index }) => {
 }
 
 const LinksDashboard = ({ userLinks }) => {
-
-    const link = userLinks[0];
-
-    // Crypto.encrypt('password', link.shortcode)
-    //     .then(({ cipherText, iv }) => {
-    //         console.log(`${link.shortUrl}: ciphertext: ${cipherText}, iv: ${iv}`);
-
-    //         Crypto.decrypt('password1', link.shortcode, cipherText, iv)
-    //             .then(result => {
-    //                 console.log(`Decryption success! password was ${result}`)
-    //             }, error => {
-    //                 console.log('Incorrect password :(')
-    //             })
-    //     }, error => {
-    //         console.log(error)
-    //     })
-
     return (
         <Tab.Container 
             id="left-tabs-example" 

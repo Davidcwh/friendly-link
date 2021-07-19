@@ -19,11 +19,11 @@ const ShortenUrlBar = ({ title }) => {
 
         let encryption = null;
         if(isAuthenticated && password !== '') {
-            encryption = await Crypto.encrypt('password')
+            encryption = await Crypto.encrypt(password)
                                     .catch(error => {
                                         setShowError(true);
                                         setErrorMessage('Could not encrypt password :(');
-                                    })
+                                    });
         }
 
         API.createShortUrl(url, userId, encryption)

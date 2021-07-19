@@ -3,7 +3,7 @@ const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 const config = {
     headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded",
     }
 }
 
@@ -42,12 +42,22 @@ const getClickCountByDate = (shortCode) => {
     return axios.get(`${serverUrl}/getClickCountByDate/${shortCode}`, config);
 }
 
+const getLinkEncryption = (shortCode) => {
+    return axios.get(`${serverUrl}/getLinkEncryption/${shortCode}`, config);
+}
+
+const goToOriginalUrl = (shortCode) => {
+    return axios.get(`${serverUrl}/getOriginalUrl/${shortCode}`, config)
+}
+
 const API = {
     createShortUrl,
     createUser,
     getUserLinks,
     getTotalClickCount,
-    getClickCountByDate
+    getClickCountByDate,
+    getLinkEncryption,
+    goToOriginalUrl
 }
 
 export default API;

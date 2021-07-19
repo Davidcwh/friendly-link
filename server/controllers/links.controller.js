@@ -52,8 +52,33 @@ const getOriginalUrl = (req, res) => {
             if(err) {
                 console.error(err.stack)
             }
+        });
+
+        res.status(200).json({originalUrl});
+    })
+};
+
+const getLinkEncryption = (req, res) => {
+    const shortCode = req.params.shortcode;
+    Link.getByShortCode(shortCode, (err, data) => {
+        if(err) {
+            res.status(500).json('Error retrieving link encryption data');
+            return;
+        }
+
+        if(data.rowCount == 0) {
+            res.status(404).send('No URL associated with given short code');
+            return;
+        }
+
+        const cipherText = data.rows[0].ciphertext;
+        const iv = data.rows[0].iv;
+        const salt = data.rows[0].salt;
+
+        return res.status(200).json({
+            encryption: { cipherText, iv, salt }
         })
-        return res.redirect(302, originalUrl);
+        
     })
 };
 
@@ -80,5 +105,6 @@ const getUserLinks = (req, res) => {
 module.exports = {
     createShortUrl,
     getOriginalUrl,
-    getUserLinks
+    getUserLinks,
+    getLinkEncryption
 }
