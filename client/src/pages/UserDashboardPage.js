@@ -36,9 +36,6 @@ const UserDashboardPage = () => {
     const getUserLinks = () => {
         API.getUserLinks(sub)
             .then(response => {
-                const originalLinks = response.data.map((link) => {
-                    return link.originalurl
-                }) 
                 console.log(response.data)
                 setUserLinks(response.data)
             }, error => {

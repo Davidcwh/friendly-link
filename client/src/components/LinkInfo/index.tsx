@@ -1,5 +1,6 @@
 import { UserLink } from "../LinksDashboard/types";
 import { InfoWrapper } from './styles';
+import LinkInfoBlock from '../LinkInfoBlock';
 
 interface LinkInfoProps {
     userLink: UserLink
@@ -10,13 +11,7 @@ const LinkInfo = ({
 }: LinkInfoProps) => {
     return (
         <InfoWrapper>
-            <h1>
-                {userLink && userLink.originalurl}
-            </h1>
-            <br/>
-            <div>
-                {userLink && userLink.shortUrl}
-            </div>
+            {userLink !== undefined && <LinkInfoBlock userLink={userLink}/>}
         </InfoWrapper>
     )
 }

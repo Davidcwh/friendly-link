@@ -14,13 +14,6 @@ const LinksList = ({
     onSelectLink
 }: LinksListProps) => {
 
-    const getDateString = (date: string) => {
-        const dateObj = new Date(date);
-        const offset = dateObj.getTimezoneOffset();
-        const finalDate = new Date(dateObj.getTime() - (offset*60*1000));
-        return finalDate.toISOString().split('T')[0];
-    }
-
     const getShortenDate = (dateString: string) => {
         const dateObj = new Date(dateString);
         const month = dateObj.toLocaleString('default', { month: 'short' });

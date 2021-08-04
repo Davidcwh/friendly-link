@@ -19,11 +19,7 @@ export const ListItemWrapper = styled(List.Item)`
     padding-left: 24px;
     cursor: pointer;
     transition: all 0.1s ease-in-out;
-    &:hover,
-    &:active,
-    &:focus {
-        
-    }
+
     .ant-list-item-meta-description {
         color: rgb(255, 130, 92);
         font-size: 14px;
