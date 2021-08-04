@@ -1,11 +1,13 @@
-import './UserDashboardPage.css';
+// import './UserDashboardPage.css';
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Row, Col } from 'react-bootstrap';
 import TopBar from '../components/TopBar';
-import LinksDashboard from '../components/LinksDashboard';
-import ShortenUrlBar from '../components/ShortenUrlBar';
+// import LinksDashboard from '../components/LinksDashboard';
 import API from '../util/API';
+import Header from '../components/Header';
+import LinksDashboard from '../components/LinksDashboard';
+import FullContainer from '../components/FullContainer';
 
 const UserDashboardPage = () => {
     const { user } = useAuth0();
@@ -37,7 +39,7 @@ const UserDashboardPage = () => {
                 const originalLinks = response.data.map((link) => {
                     return link.originalurl
                 }) 
-                // console.log(response.data)
+                console.log(response.data)
                 setUserLinks(response.data)
             }, error => {
                 console.log(error)
@@ -45,9 +47,10 @@ const UserDashboardPage = () => {
     }
 
     return (
-        <>
-        
-        <div className="Dashboard">
+        <FullContainer>
+        <Header/>
+        <LinksDashboard userLinks={userLinks}/>
+        {/* <div className="Dashboard">
             <TopBar/>
             <header className="Dashboard-header">
                 
@@ -60,8 +63,8 @@ const UserDashboardPage = () => {
                 </Row>
                 
             </header>
-        </div>
-        </>
+        </div> */}
+        </FullContainer>
     )
 }
 

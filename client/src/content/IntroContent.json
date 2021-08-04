@@ -1,0 +1,14 @@
+
+{
+    "title": "Short links, big results",
+    "text": "A URL shortener built with powerful tools that makes sharing links easier.",
+    "button": [
+      {
+        "title": "Get Started"
+      },
+      {
+        "title": "Learn more",
+        "color": "#fff"
+      }
+    ]
+}

@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+// import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
+import "antd/dist/antd.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import Auth0ProviderWithHistory from './auth/auth0-provider-with-history';
 

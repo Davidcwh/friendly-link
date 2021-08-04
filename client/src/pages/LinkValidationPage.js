@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import LinkValidationBar from '../components/LinkValidationBar';
 import API from '../util/API';
 import { useParams } from 'react-router';
-import LoadingPage from '../pages/LoadingPage';
+import LoadingPage from '../pages/LoadingPage.tsx';
 
 const LinkValidationPage = () => {
     const { shortcode } = useParams();
