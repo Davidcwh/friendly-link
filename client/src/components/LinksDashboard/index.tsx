@@ -43,7 +43,7 @@ const LinksDashboard = ({
 
             <Col span={18}>
                 {
-                    isInfoHidden ? <div></div>: 
+                    (isInfoHidden || userLinks[currentLinkIndex] === undefined) ? <div></div>: 
                     <LinkInfo
                         userLink={userLinks[currentLinkIndex]}
                     />

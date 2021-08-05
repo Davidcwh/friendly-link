@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { UserLink } from '../LinksDashboard/types';
 import { Row, Col } from 'antd';
-import { Divider } from 'antd';
 import { 
     OriginalLinkTitle,
     OriginalLinkSubTitle,
     ShortenLink,
     StyledRow,
-    StyledButton
+    StyledButton,
+    StyledDivider
  } from './styles';
 
 interface LinkInfoBlockProps {
@@ -76,7 +76,7 @@ const LinkInfoBlock = ({
                     <StyledButton onClick={onCopyButtonClick}>COPY</StyledButton>
                 </Col>
             </StyledRow>
-            <Divider/>
+            <StyledDivider/>
         </>
     )
 }

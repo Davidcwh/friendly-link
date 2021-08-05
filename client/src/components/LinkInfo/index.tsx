@@ -13,8 +13,7 @@ const LinkInfo = ({
     return (
         <InfoWrapper>
             <Fade direction="right" duration={800} damping={0.2} cascade>
-                {userLink !== undefined && <LinkInfoBlock userLink={userLink}/>}
-
+                <LinkInfoBlock userLink={userLink}/>
                 <div>hello</div>
             </Fade>
         </InfoWrapper>

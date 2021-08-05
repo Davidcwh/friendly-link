@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Row } from 'antd';
+import { Row, Divider } from 'antd';
 
 export const OriginalLinkTitle = styled("div")`
     font-family: 'Motiva Sans Light', serif;
@@ -53,4 +53,8 @@ export const StyledButton = styled("button")<any>`
 
 export const StyledRow = styled(Row)<any>`
     margin: ${props => props.spacing || "24px"} 0;
+`
+
+export const StyledDivider = styled(Divider)`
+    border-top: 1px solid #d3d4d7;
 `
