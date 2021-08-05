@@ -1,6 +1,7 @@
 import { UserLink } from "../LinksDashboard/types";
 import { InfoWrapper } from './styles';
 import LinkInfoBlock from '../LinkInfoBlock';
+import { Fade } from 'react-awesome-reveal';
 
 interface LinkInfoProps {
     userLink: UserLink
@@ -11,7 +12,11 @@ const LinkInfo = ({
 }: LinkInfoProps) => {
     return (
         <InfoWrapper>
-            {userLink !== undefined && <LinkInfoBlock userLink={userLink}/>}
+            <Fade direction="right" duration={800} damping={0.2} cascade>
+                {userLink !== undefined && <LinkInfoBlock userLink={userLink}/>}
+
+                <div>hello</div>
+            </Fade>
         </InfoWrapper>
     )
 }
