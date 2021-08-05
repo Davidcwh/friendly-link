@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UserLink } from './types'
 import { Space, Row, Col } from 'antd'
 import LinksList from '../LinksList'
@@ -13,6 +13,20 @@ const LinksDashboard = ({
     userLinks
 }: LinksDashboardProps) => {
     const [currentLinkIndex, setCurrentLinkIndex] = useState(0);
+    const [isInfoHidden, setIsInfoHidden] = useState(false);
+
+    // So that link info will slide in with every click
+    useEffect(() => {
+        if(isInfoHidden) {
+            const timer = setTimeout(() => {
+                setIsInfoHidden(false);
+            }, 1);
+
+            return () => {
+                clearTimeout(timer);
+            } 
+        }
+    }, [isInfoHidden]);
 
     return (
         <DashboardWrapper>
@@ -20,14 +34,20 @@ const LinksDashboard = ({
                 <LinksList 
                     userLinks={userLinks}
                     currentLinkIndex={currentLinkIndex}
-                    onSelectLink={(index: number) => setCurrentLinkIndex(index)}
+                    onSelectLink={(index: number) => {
+                        setCurrentLinkIndex(index);
+                        setIsInfoHidden(true);
+                    }}
                 />
             </Col>
 
             <Col span={18}>
-                <LinkInfo
-                    userLink={userLinks[currentLinkIndex]}
-                />
+                {
+                    isInfoHidden ? <div></div>: 
+                    <LinkInfo
+                        userLink={userLinks[currentLinkIndex]}
+                    />
+                }
             </Col>
         </DashboardWrapper>
     )

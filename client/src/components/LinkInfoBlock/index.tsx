@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { UserLink } from '../LinksDashboard/types';
 import { Row, Col } from 'antd';
-
+import { Fade } from 'react-awesome-reveal';
 import { 
     OriginalLinkTitle,
     OriginalLinkSubTitle,
@@ -53,7 +53,7 @@ const LinkInfoBlock = ({
 
     return (
 
-        <>
+        <Fade direction="right" duration={800}>
             <Row>
                 <div>{`CREATED ${getShortenDate(userLink.datecreated)}`}</div>
             </Row>
@@ -77,7 +77,7 @@ const LinkInfoBlock = ({
                     <StyledButton onClick={onCopyButtonClick}>COPY</StyledButton>
                 </Col>
             </StyledRow>
-        </>
+        </Fade>
     )
 }
 
