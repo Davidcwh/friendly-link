@@ -3,7 +3,7 @@ import { UserLink } from './types'
 import { Space, Row, Col } from 'antd'
 import LinksList from '../LinksList'
 import LinkInfo from '../LinkInfo'
-import { DashboardWrapper } from './styles'
+import { DashboardWrapper, DashboardWrapper1 ,LinksListWrapper, LinkInfoWrapper } from './styles'
 
 interface LinksDashboardProps {
     userLinks: Array<UserLink>
@@ -39,8 +39,7 @@ const LinksDashboard = ({
                         setIsInfoHidden(true);
                     }}
                 />
-            </Col>
-
+            </Col>            
             <Col span={18}>
                 {
                     (isInfoHidden || userLinks[currentLinkIndex] === undefined) ? <div></div>: 

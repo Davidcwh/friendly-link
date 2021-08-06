@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const InfoWrapper = styled("div")`
     height: 100%;
-    // border: 1px solid #e8e8e8;
-    // border-radius: 4px;
     padding: 50px;
+    // border: 10px solid red;
+    // overflow: scroll;
 `

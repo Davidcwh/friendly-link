@@ -22,7 +22,7 @@ const LinkInfo = ({ link, index }) => {
             }, error => {
                 console.log(error);
             })
-    }, [])
+    }, []);
 
     return (
         <Tab.Pane eventKey={link.shortcode} key={index} >
