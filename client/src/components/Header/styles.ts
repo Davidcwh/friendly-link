@@ -50,6 +50,10 @@ export const Burger = styled("div")`
 `;
 
 export const NotHidden = styled("div")`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+    text-align: center;
 	@media only screen and (max-width: 890px) {
 		display: none;
 	}

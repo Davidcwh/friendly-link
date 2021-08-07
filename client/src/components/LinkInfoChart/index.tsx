@@ -27,24 +27,26 @@ const LinkInfoChart = ({
         const totalClickRes = await API.getTotalClickCount(userLink.shortcode).catch(error => console.log(error));
         
         if(totalClickRes) {
-            console.log(totalClickRes.data.clickCount);
             setTotalClickCount(totalClickRes.data.clickCount);
         };
 
         const clickCountByDateRes = await API.getClickCountByDate(userLink.shortcode).catch(error => console.log(error));
         if(clickCountByDateRes) {
-            console.log(clickCountByDateRes.data);
 
             const data = clickCountByDateRes.data;
             const datesArray: any = [];
 
-            const startDate = new Date(userLink.datecreated);
+            const dateCreated = new Date(userLink.datecreated);
+            var userTimezoneOffset = dateCreated.getTimezoneOffset() * 60000;
+            const startDate = new Date(dateCreated.getTime() + userTimezoneOffset);
             const endDate = new Date();
             var currentDate = startDate;
-            while (currentDate <= endDate) {
+
+            while (currentDate.getTime() <= endDate.getTime()) {
                 datesArray.push(new Date (currentDate));
                 currentDate.setDate(currentDate.getDate() + 1);
             }
+            // console.log(datesArray)
             
             const dataArray = data.reduce((acc: any, item: any) => {
                 const date = item.clickdate;

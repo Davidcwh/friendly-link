@@ -5,6 +5,7 @@ import { SvgIcon } from "../../common/SvgIcon";
 import { Button } from "../../common/Button";
 import { useAuth0 } from '@auth0/auth0-react';
 import UserMenu from "../UserMenu";
+import CreateButton from "../CreateButton";
 import {
     HeaderSection,
     LogoContainer,
@@ -72,9 +73,18 @@ const Header = () => {
 		);
     };
 
+	const UserDashboardPageMenuItem = () => {
+		return (
+			<>
+				<CreateButton/>
+				<UserMenu userTitle={email === undefined ? 'Your account' : email}/>
+			</>
+		)
+	}
+
 	const MenuItem = () => {
 		if(isAuthenticated) {
-			return <UserMenu userTitle={email === undefined ? 'Your account' : email}/>
+			return <UserDashboardPageMenuItem/>
 		} else {
 			return <LandingPageMenuItem />
 		}

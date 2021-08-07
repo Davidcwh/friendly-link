@@ -23,7 +23,7 @@ const createShortUrl = (req, res) => {
             // res.status(500).json(err.stack);
         } else {
             const shortUrl = shortBaseUrl + '/' + shortCode;
-            const responseBody = userId === undefined ? { originalUrl, shortCode, shortUrl } : { originalUrl, shortCode, shortUrl, userId }
+            const responseBody = userId === undefined ? { originalUrl, shortCode, shortUrl, hasProtocol } : { originalUrl, shortCode, shortUrl, hasProtocol, userId }
             res.status(201).json(responseBody);
         }
     });

@@ -3,14 +3,18 @@ import { UserLink } from './types'
 import { Space, Row, Col } from 'antd'
 import LinksList from '../LinksList'
 import LinkInfo from '../LinkInfo'
-import { DashboardWrapper, DashboardWrapper1 ,LinksListWrapper, LinkInfoWrapper } from './styles'
+import { DashboardWrapper, DashboardWrapper1 ,LinksListWrapper, LinkInfoWrapper } from './styles';
+import CenteredSpinner from '../CenteredSpinner';
+import { rxjsService } from '../../util/RxjsService';
 
 interface LinksDashboardProps {
-    userLinks: Array<UserLink>
+    userLinks: Array<UserLink>,
+    isLoading: boolean
 };
 
 const LinksDashboard = ({
-    userLinks
+    userLinks,
+    isLoading
 }: LinksDashboardProps) => {
     const [currentLinkIndex, setCurrentLinkIndex] = useState(0);
     const [isInfoHidden, setIsInfoHidden] = useState(false);
@@ -27,6 +31,10 @@ const LinksDashboard = ({
             } 
         }
     }, [isInfoHidden]);
+
+    if(isLoading) {
+        return <CenteredSpinner/>
+    }
 
     return (
         <DashboardWrapper>

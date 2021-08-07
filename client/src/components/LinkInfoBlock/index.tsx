@@ -24,7 +24,7 @@ const LinkInfoBlock = ({
         const month = dateObj.toLocaleString('default', { month: 'short' });
         const date = dateObj.getDate();
         const year = dateObj.getFullYear();
-        return month + " " + date + "," + year;
+        return month + " " + date + ", " + year;
     }
 
     const getFormattedUrl = () => {
