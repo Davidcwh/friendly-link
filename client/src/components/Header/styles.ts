@@ -8,7 +8,6 @@ export const HeaderSection = styled("header")`
         align-items: center;
         text-align: center;
     }
-	// background: #a7a7a8;
 `;
 
 export const LogoContainer = styled(Link)`

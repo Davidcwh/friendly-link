@@ -79,19 +79,35 @@ const Header = () => {
 			return <LandingPageMenuItem />
 		}
 	}
+
+	const DrawerItem = () => {
+		if(isAuthenticated) {
+			return (
+				<CustomNavLinkSmall onClick={() => logout({
+					returnTo: window.location.origin
+				})}>
+					<Span>{"Logout"}</Span>
+				</CustomNavLinkSmall>
+			)
+		} else {
+			return <LandingPageMenuItem />
+		}
+	}
   
     return (
 		<HeaderSection>
 			<Container>
 			<Row justify="space-between">
 				<LogoContainer to="/" aria-label="homepage">
-				<SvgIcon src="logo.001.jpeg" width="200px" height="45px" />
+					<SvgIcon src="logo.001.jpeg" width="200px" height="45px" />
 				</LogoContainer>
+
 				<NotHidden>
-				<MenuItem/>
+					<MenuItem/>
 				</NotHidden>
+				
 				<Burger onClick={showDrawer}>
-				<Outline />
+					<Outline />
 				</Burger>
 			</Row>
 			<Drawer closable={false} visible={visible} onClose={onClose}>
@@ -105,7 +121,7 @@ const Header = () => {
 					</Col>
 				</Label>
 				</Col>
-				<MenuItem />
+				<DrawerItem />
 			</Drawer>
 			</Container>
 		</HeaderSection>

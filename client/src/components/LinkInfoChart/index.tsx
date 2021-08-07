@@ -148,11 +148,7 @@ const LinkInfoChart = ({
 
     return (
         <InfoChartWrapper>
-            <Statistic title="TOTAL CLICKS" value={totalClickCount} prefix={<BarChartOutlined/>} 
-            style={{
-                // height: '30px',
-                // width: "30px"
-            }}/>
+            <Statistic title="TOTAL CLICKS" value={totalClickCount} prefix={<BarChartOutlined/>} />
             {clickCountByDate.length > 0 && totalClickCount > 0 && <HighchartsReact
                 highcharts={Highcharts}
                 options={options}
