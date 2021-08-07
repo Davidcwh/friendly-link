@@ -81,7 +81,29 @@ const LinkInfoChart = ({
             zoomType: 'x',
             panning: true,
             panKey: 'shift',
-            height: '30%'
+            height: '30%',
+            resetZoomButton: {
+                theme: {
+                    fill: 'white',
+                    stroke: 'rgb(255, 130, 92)',
+                    r: 0,
+                    style: {
+                        fontFamily: 'Motiva Sans Light, serif',
+                        textTransform: "uppercase",
+                        color: 'rgb(255, 130, 92)',
+                    },
+                    states: {
+                        hover: {
+                            fill: 'rgb(255, 130, 92)',
+                            style: {
+                                fontFamily: 'Motiva Sans Light, serif',
+                                textTransform: "uppercase",
+                                color: 'white',
+                            }
+                        }
+                    }
+                }
+            }
         },
         title: {
           text: ''
@@ -105,7 +127,7 @@ const LinkInfoChart = ({
                     textTransform: "uppercase"
                 }
             },
-            tickInterval: 604800000,
+            tickInterval: 604800000, // weekly interval
             type: "datetime",
             min: clickCountByDate.length > 0 ? clickCountByDate[0].x : 0,
             
