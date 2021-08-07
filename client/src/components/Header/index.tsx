@@ -93,11 +93,14 @@ const Header = () => {
 	const DrawerItem = () => {
 		if(isAuthenticated) {
 			return (
+				<>
+				<CreateButton/>
 				<CustomNavLinkSmall onClick={() => logout({
 					returnTo: window.location.origin
 				})}>
 					<Span>{"Logout"}</Span>
 				</CustomNavLinkSmall>
+				</>
 			)
 		} else {
 			return <LandingPageMenuItem />

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Drawer } from "antd";
 
 export const StyledButton = styled("div")<any>`
+    text-align: center;
     background: rgb(255, 130, 92);
     color: #fff;
     font-size: 1rem;
