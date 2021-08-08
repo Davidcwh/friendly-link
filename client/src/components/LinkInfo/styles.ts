@@ -5,3 +5,7 @@ export const InfoWrapper = styled("div")`
     overflow-y: auto;
     overflow-x: hidden;
 `
+
+export const EmptyWrapper = styled("div")`
+    padding: 10% 20%;
+`

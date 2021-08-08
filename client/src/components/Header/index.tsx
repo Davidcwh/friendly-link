@@ -76,7 +76,7 @@ const Header = () => {
 	const UserDashboardPageMenuItem = () => {
 		return (
 			<>
-				<CreateButton/>
+				<CreateButton title="CREATE"/>
 				<UserMenu userTitle={email === undefined ? 'Your account' : email}/>
 			</>
 		)
@@ -94,7 +94,7 @@ const Header = () => {
 		if(isAuthenticated) {
 			return (
 				<>
-				<CreateButton/>
+				<CreateButton title="CREATE"/>
 				<CustomNavLinkSmall onClick={() => logout({
 					returnTo: window.location.origin
 				})}>

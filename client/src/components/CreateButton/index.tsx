@@ -7,7 +7,13 @@ import API from "../../util/API";
 import { InfoCircleOutlined, LockFilled } from "@ant-design/icons";
 import { rxjsService } from "../../util/RxjsService";
 
-const CreateButton = () => {
+interface CreateButtonProps {
+    title: string
+}
+
+const CreateButton = ({
+    title
+}: CreateButtonProps) => {
     const [visible, setVisible] = useState(false);
     const [form] = Form.useForm();
 
@@ -78,10 +84,18 @@ const CreateButton = () => {
         setVisible(false);
     }
 
+    const handleKeypress = (e: any) => {
+        //it triggers by pressing the enter key
+        const code = e.keyCode || e.which;
+        if (code === 13 && text !== '') {
+            handleOnButtonClick(e, () => createShortUrl(text))
+        }
+    };
+
     return (
         <>
             <StyledButton onClick={() => setVisible(true)}>
-                CREATE
+                {title}
             </StyledButton>
 
 
@@ -113,6 +127,7 @@ const CreateButton = () => {
                             style={{ height: '50px'}}
                             value={text}
                             onChange={e => handleTextChange(e.target.value)}
+                            onKeyPress={handleKeypress}
                         />
                     </Form.Item>
 
@@ -127,7 +142,8 @@ const CreateButton = () => {
                             placeholder="Set password" 
                             type="password"
                             value={password}
-                            onChange={e => handlePasswordChange(e.target.value)}    
+                            onChange={e => handlePasswordChange(e.target.value)}
+                            onKeyPress={handleKeypress}
                         />
                     </Form.Item>
                 </Form>

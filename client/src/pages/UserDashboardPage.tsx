@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import LinksDashboard from '../components/LinksDashboard';
 import FullContainer from '../components/FullContainer';
 import { rxjsService } from '../util/RxjsService';
+import { Empty } from 'antd';
 
 const UserDashboardPage = () => {
     const { user } = useAuth0();
@@ -61,13 +62,14 @@ const UserDashboardPage = () => {
         return result;
     }
 
+    
     return (
         <FullContainer>
             <Header/>
-            <LinksDashboard 
-                userLinks={userLinks}
-                isLoading={isLoadingLinks}
-            />
+                <LinksDashboard 
+                    userLinks={userLinks}
+                    isLoading={isLoadingLinks}
+                />
         </FullContainer>
     )
 }
