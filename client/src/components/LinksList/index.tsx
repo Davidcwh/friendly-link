@@ -37,8 +37,8 @@ const LinksList = ({
                             onClick={() => onSelectLink(index)}>
 
                             <List.Item.Meta
-                            title={item.originalurl}
-                            description={item.shortUrl}
+                                title={item.originalurl}
+                                description={item.shortUrl}
                             />
                             <div>{linkDate}</div>
                         </ListItemWrapper>
