@@ -21,9 +21,8 @@ const LinksList = ({
         return month + " " + date;
     }
 
-
     return (
-        <ListWrapper>
+        <ListWrapper style={{height: 'calc(100vh - 90px)'}}>
             <List
                 size={'large'}
                 dataSource={userLinks}

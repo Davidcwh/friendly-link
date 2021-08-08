@@ -92,7 +92,9 @@ const getUserLinks = (req, res) => {
 
         const results = data.rows.map((row) => {
             const shortUrl = shortBaseUrl + '/' + row.shortcode;
+            const isLocked = row.ciphertext !== null;
             return {
+                isLocked,
                 shortUrl,
                 ...row
             }

@@ -12,7 +12,7 @@ const LinkInfo = ({
     userLink
 }: LinkInfoProps) => {
     return (
-        <InfoWrapper>
+        <InfoWrapper style={{height: 'calc(100vh - 90px)'}}>
             <Fade direction="right" duration={800} damping={0.2} cascade>
                 <LinkInfoBlock userLink={userLink}/>
                 <LinkInfoChart userLink={userLink}/>

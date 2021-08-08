@@ -4,7 +4,7 @@ import { useState } from "react";
 import { StyledButton, DrawerWrapper, SumbitButton } from "./styles";
 import Crypto from "../../util/Crypto";
 import API from "../../util/API";
-import { InfoCircleOutlined, LockOutlined } from "@ant-design/icons";
+import { InfoCircleOutlined, LockFilled } from "@ant-design/icons";
 import { rxjsService } from "../../util/RxjsService";
 
 const CreateButton = () => {
@@ -125,7 +125,7 @@ const CreateButton = () => {
                         help={passwordError}
                     >
                         <Input 
-                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            prefix={<LockFilled className="site-form-item-icon" />}
                             placeholder="Set password" 
                             type="password"
                             value={password}

@@ -3,7 +3,7 @@ import { UserLink } from './types'
 import { Space, Row, Col } from 'antd'
 import LinksList from '../LinksList'
 import LinkInfo from '../LinkInfo'
-import { DashboardWrapper, DashboardWrapper1 ,LinksListWrapper, LinkInfoWrapper } from './styles';
+import { DashboardWrapper, StyledRow, StyledCol } from './styles';
 import CenteredSpinner from '../CenteredSpinner';
 import { rxjsService } from '../../util/RxjsService';
 
@@ -38,7 +38,8 @@ const LinksDashboard = ({
 
     return (
         <DashboardWrapper>
-            <Col span={6}>
+        <StyledRow>
+            <StyledCol span={6}>
                 <LinksList 
                     userLinks={userLinks}
                     currentLinkIndex={currentLinkIndex}
@@ -47,15 +48,16 @@ const LinksDashboard = ({
                         setIsInfoHidden(true);
                     }}
                 />
-            </Col>            
-            <Col span={18}>
+            </StyledCol>            
+            <StyledCol span={18}>
                 {
                     (isInfoHidden || userLinks[currentLinkIndex] === undefined) ? <div></div>: 
                     <LinkInfo
                         userLink={userLinks[currentLinkIndex]}
                     />
                 }
-            </Col>
+            </StyledCol>
+        </StyledRow>
         </DashboardWrapper>
     )
 }

@@ -60,7 +60,7 @@ Link.getByShortCode = (shortCode, callback) => {
 };
 
 Link.getByUserId = (userId, callback) => {
-    db.query('SELECT originalUrl, shortCode, dateCreated::text, hasProtocol FROM Links WHERE userId = $1', [userId],
+    db.query('SELECT originalUrl, shortCode, dateCreated::text, hasProtocol, cipherText FROM Links WHERE userId = $1', [userId],
         (error, results) => {
             if(error) {
                 callback(error, null);

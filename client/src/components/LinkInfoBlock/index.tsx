@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { UserLink } from '../LinksDashboard/types';
-import { Row, Col } from 'antd';
+import { Row, Col, Space, Tooltip } from 'antd';
+import { LockFilled } from '@ant-design/icons'
 import { 
     OriginalLinkTitle,
     OriginalLinkSubTitle,
@@ -55,6 +56,15 @@ const LinkInfoBlock = ({
         <>
             <Row>
                 <div>{`CREATED ${getShortenDate(userLink.datecreated)}`}</div>
+                {userLink.isLocked && 
+                    <Space align="center" style={{gap: '4px', marginLeft: '4px'}}>
+                        <div>|</div>
+                        <Tooltip title="Link requires password to access">
+                            <LockFilled/>
+                        </Tooltip>                    
+                    </Space>
+                }
+                
             </Row>
 
             <Row>
@@ -76,6 +86,7 @@ const LinkInfoBlock = ({
                     <StyledButton onClick={onCopyButtonClick}>COPY</StyledButton>
                 </Col>
             </StyledRow>
+
             <StyledDivider/>
         </>
     )

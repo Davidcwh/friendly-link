@@ -3,5 +3,6 @@ export interface UserLink {
     originalurl: string,
     shortcode: string,
     datecreated: string,
-    hasprotocol: boolean
+    hasprotocol: boolean,
+    isLocked: boolean
 }
