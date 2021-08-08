@@ -1,9 +1,5 @@
-// import './UserDashboardPage.css';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
-import { Row, Col } from 'react-bootstrap';
-import TopBar from '../components/TopBar';
-// import LinksDashboard from '../components/LinksDashboard';
 import API from '../util/API';
 import Header from '../components/Header';
 import LinksDashboard from '../components/LinksDashboard';
@@ -12,7 +8,9 @@ import { rxjsService } from '../util/RxjsService';
 
 const UserDashboardPage = () => {
     const { user } = useAuth0();
+    // @ts-ignore: Object is possibly 'null'
     const { sub, email } = user;
+    // @ts-ignore: Object is possibly 'null'
     const is_first_login = user['http://localhost:3000/is_first_login'];
     const [createUserStatus, setCreateUserStatus] = useState('pending');
     const [userLinks, setUserLinks] = useState([]);
@@ -45,6 +43,7 @@ const UserDashboardPage = () => {
         API.getUserLinks(sub)
             .then(response => {
                 console.log(response.data)
+                // @ts-ignore: Object is possibly 'null'
                 setUserLinks(sortLinksDescDate(response.data))
                 setIsLoadingLinks(false);
             }, error => {
@@ -53,6 +52,7 @@ const UserDashboardPage = () => {
             })
     }
 
+    // @ts-ignore: Object is possibly 'null'
     const sortLinksDescDate = (userLinks) => {
         const result = [];
         for(let i = userLinks.length - 1; i >= 0; i--) {

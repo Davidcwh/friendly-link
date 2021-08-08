@@ -1,9 +1,9 @@
-import './LinkValidationPage.css';
-import React, {useState, useEffect} from 'react';
-import LinkValidationBar from '../components/LinkValidationBar';
+import {useState, useEffect} from 'react';
 import API from '../util/API';
+// @ts-ignore: Object is possibly 'null'
 import { useParams } from 'react-router';
-import LoadingPage from '../pages/LoadingPage.tsx';
+import LoadingPage from '../pages/LoadingPage';
+import LinkValidationForm from '../components/LinkValidationForm';
 
 const LinkValidationPage = () => {
     const { shortcode } = useParams();
@@ -46,15 +46,9 @@ const LinkValidationPage = () => {
         {
             isLoading ?
                 <LoadingPage/> : 
-                <div className="Dashboard">
-                    <header className="Dashboard-header">
-                        {
-                            hasLinkError ?
-                                <div>{linkError}</div> :
-                                <LinkValidationBar title="Link Locked" encryption={encryption} shortcode={shortcode}/>
-                        }
-                    </header>
-                </div>
+                    hasLinkError ?
+                    <div>{linkError}</div> :
+                    <LinkValidationForm encryption={encryption} shortcode={shortcode}/>
         }
         
         </>

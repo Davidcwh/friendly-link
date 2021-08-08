@@ -18,8 +18,6 @@ const CreateButton = () => {
     const [password, setPassword] = useState('');
     const [hasPasswordError, setHasPasswordError] = useState(false);
     const [passwordError, setPasswordError] = useState('');
-
-    const [isShortenUrl, setIsShortenUrl] = useState(false);
     
     const { isAuthenticated, user } = useAuth0();
 

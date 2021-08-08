@@ -1,9 +1,9 @@
 import { Route, Switch, Redirect } from 'react-router';
 import { useAuth0 } from '@auth0/auth0-react';
 import LandingPage from './pages/LandingPage.tsx';
-import UserDashboardPage from './pages/UserDashboardPage';
+import UserDashboardPage from './pages/UserDashboardPage.tsx';
 import LoadingPage from './pages/LoadingPage.tsx';
-import LinkValidationPage from './pages/LinkValidationPage';
+import LinkValidationPage from './pages/LinkValidationPage.tsx';
 import ProtectedRoute from './auth/protected-route';
 import { Styles } from './styles/styles';
 
