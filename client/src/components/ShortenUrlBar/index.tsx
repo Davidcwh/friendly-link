@@ -8,13 +8,7 @@ import {
     StyledInput
 } from './styles'
 
-interface ShortenUrlBarProps {
-
-};
-
-const ShortenUrlBar = ({
-
-}: ShortenUrlBarProps) => {
+const ShortenUrlBar = () => {
     const [text, setText] = useState('');
     const [hasTextError, setHasTextError] = useState(false);
     const [textError, setTextError] = useState('');

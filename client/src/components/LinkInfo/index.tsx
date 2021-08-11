@@ -4,7 +4,6 @@ import LinkInfoBlock from '../LinkInfoBlock';
 import LinkInfoChart from "../LinkInfoChart";
 import { Fade } from 'react-awesome-reveal';
 import { Empty, Space } from "antd";
-import CreateButton from '../CreateButton';
 import { useState } from "react";
 
 interface LinkInfoProps {

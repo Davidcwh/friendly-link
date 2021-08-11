@@ -4,7 +4,7 @@ import HighchartsReact from 'highcharts-react-official'
 import { UserLink } from "../LinksDashboard/types";
 import { InfoChartWrapper } from './styles';
 import API from '../../util/API';
-import { Statistic, Row, Col } from 'antd';
+import { Statistic } from 'antd';
 import { BarChartOutlined } from '@ant-design/icons';
 
 interface LinkInfoChartProps {

@@ -1,4 +1,3 @@
-import { Spin } from 'antd'
 import { SpinnerWrapper, CustomSpinner } from './styles';
 
 const CenteredSpinner = () => {

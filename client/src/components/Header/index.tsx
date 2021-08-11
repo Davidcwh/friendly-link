@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Row, Col, Drawer } from "antd";
 import Container from "../../common/Container";
-import { SvgIcon } from "../../common/SvgIcon";
 import { Button } from "../../common/Button";
 import { useAuth0 } from '@auth0/auth0-react';
 import UserMenu from "../UserMenu";
@@ -21,7 +20,7 @@ import {
 
 const Header = () => {
     const [visible, setVisibility] = useState(false);
-	const { loginWithRedirect, isAuthenticated, isLoading, user, logout } = useAuth0();
+	const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
 	const email = isAuthenticated && user !== undefined ? user.email : '';
   
     const showDrawer = () => {

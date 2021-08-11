@@ -1,4 +1,4 @@
-import { Button, Form, Input, Space } from "antd";
+import { Form, Input, Space } from "antd";
 import { useState } from "react";
 import { Wrapper, StyledButton, Title, Subtitle } from './styles';
 import { LockFilled } from "@ant-design/icons";
