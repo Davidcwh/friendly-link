@@ -14,6 +14,15 @@ export const LogoContainer = styled(Link)`
 	display: flex;
 `;
 
+export const Logo = styled("div")`
+	font-family: 'Motiva Sans Bold', serif;
+	color: #18216d;
+	font-size: 40px;
+	// line-height: 1.18;
+	font-weight: 600;
+	letter-spacing: -2px;
+`
+
 export const NavLink = styled("div")`
 	display: inline-block;
 	text-align: center;

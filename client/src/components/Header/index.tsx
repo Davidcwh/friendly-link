@@ -9,6 +9,7 @@ import CreateButton from "../CreateButton";
 import {
     HeaderSection,
     LogoContainer,
+	Logo,
     Burger,
     NotHidden,
     Menu,
@@ -112,7 +113,8 @@ const Header = () => {
 			<Container>
 			<Row justify="space-between">
 				<LogoContainer to="/" aria-label="homepage">
-					<SvgIcon src="logo.001.jpeg" width="200px" height="45px" />
+					{/* <SvgIcon src="logo.001.jpeg" width="200px" height="45px" /> */}
+					<Logo>FriendlyLink</Logo>
 				</LogoContainer>
 
 				<NotHidden>
