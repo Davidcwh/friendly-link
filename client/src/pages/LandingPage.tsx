@@ -7,6 +7,7 @@ import ScrollToTop from '../common/ScrollToTop';
 import ContentBlock from '../components/ContentBlock';
 import MiddleBlock from '../components/MiddleBlock';
 import Header from '../components/Header';
+import Footer from "../components/Footer";
 
 const LandingPage = () => {
     return (
@@ -26,6 +27,7 @@ const LandingPage = () => {
             <MiddleBlock
                 title={MiddleBlockContent.title}
                 content={MiddleBlockContent.content}
+                id="intro2"
             />
             <ContentBlock
                 type="left"
@@ -42,6 +44,7 @@ const LandingPage = () => {
                 id="feature2"
             />
         </Container>
+        <Footer/>
         </>
     )
 };

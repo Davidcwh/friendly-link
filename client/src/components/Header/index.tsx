@@ -43,11 +43,11 @@ const Header = () => {
 
 		return (
 			<>
-			<CustomNavLinkSmall onClick={() => scrollTo("feature1")}>
+			<CustomNavLinkSmall onClick={() => scrollTo("intro2")}>
 				<Span>{"About"}</Span>
 			</CustomNavLinkSmall>
-			<CustomNavLinkSmall onClick={() => scrollTo("feature1")}>
-				<Span>{"Features"}</Span>
+			<CustomNavLinkSmall onClick={() => scrollTo("Contact")}>
+				<Span>{"Contact"}</Span>
 			</CustomNavLinkSmall>
 			<CustomNavLinkSmall onClick={() => loginWithRedirect({
                 appState: {

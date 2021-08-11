@@ -7,9 +7,10 @@ interface MiddleBlockProps {
 	title: string;
 	content: string;
 	button?: string;
+	id: string
 }
 
-const MiddleBlock = ({ title, content, button }: MiddleBlockProps) => {
+const MiddleBlock = ({ title, content, button, id }: MiddleBlockProps) => {
 	const scrollTo = (id: string) => {
 			const element = document.getElementById(id) as HTMLDivElement;
 			element.scrollIntoView({
@@ -17,9 +18,9 @@ const MiddleBlock = ({ title, content, button }: MiddleBlockProps) => {
 			});
 	};
   return (
-    <MiddleBlockSection>
+    <MiddleBlockSection id={id}>
 		<Slide direction="up">
-			<Row justify="center" align="middle">
+			<Row justify="center" align="middle" >
 			<ContentWrapper>
 				<Col lg={24} md={24} sm={24} xs={24}>
 				<h6>{title}</h6>
