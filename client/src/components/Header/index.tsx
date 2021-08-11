@@ -111,10 +111,12 @@ const Header = () => {
 		<HeaderSection>
 			<Container>
 			<Row justify="space-between">
-				<LogoContainer to="/" aria-label="homepage">
-					{/* <SvgIcon src="logo.001.jpeg" width="200px" height="45px" /> */}
-					<Logo>FriendlyLink</Logo>
-				</LogoContainer>
+				{
+					isAuthenticated ? <Logo>FriendlyLink</Logo> :
+					<LogoContainer to="/" aria-label="homepage">
+						<Logo>FriendlyLink</Logo>
+					</LogoContainer>
+				}
 
 				<NotHidden>
 					<MenuItem/>
