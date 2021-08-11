@@ -66,7 +66,7 @@ const Header = () => {
 				})}
 			>
 				<Span>
-				<Button>{"Signup"}</Button>
+				<Button disabled={false}>{"Signup"}</Button>
 				</Span>
 			</CustomNavLinkSmall>
 			</>

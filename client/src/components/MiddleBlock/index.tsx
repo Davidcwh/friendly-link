@@ -26,7 +26,7 @@ const MiddleBlock = ({ title, content, button, id }: MiddleBlockProps) => {
 				<h6>{title}</h6>
 				<Content>{content}</Content>
 				{button && (
-					<Button name="submit" onClick={() => scrollTo("mission")}>
+					<Button name="submit" onClick={() => scrollTo("mission")} disabled={false}>
 					{button}
 					</Button>
 				)}

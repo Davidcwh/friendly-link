@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StyledButton = styled("button")<any>`
+    opacity: ${props => props.disabled ? 0.4 : 1};
     background: ${(props) => props.color || "#2e186a"};
     color: ${(props) => (props.color ? "#2E186A" : "#fff")};
     font-size: 1rem;
@@ -9,7 +10,7 @@ export const StyledButton = styled("button")<any>`
     border: 1px solid #edf3f5;
     border-radius: 4px;
     padding: 13px 0;
-    cursor: pointer;
+    cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
     // margin-top: 0.625rem;
     max-width: 180px;
     transition: all 0.3s ease-in-out;
@@ -19,6 +20,6 @@ export const StyledButton = styled("button")<any>`
     &:focus {
         color: #fff;
         border: 1px solid rgb(255, 130, 92);
-        background-color: rgb(255, 130, 92);
+        background-color: ${props => props.disabled ? "#2e186a" : "rgb(255, 130, 92)"};
     }
 `;

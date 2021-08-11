@@ -58,6 +58,7 @@ const RightBlock = ({
 							color={item.color}
 							fixedWidth={true}
 							onClick={onClick}
+							disabled={false}
 						>
 							{item.title}
 						</Button>

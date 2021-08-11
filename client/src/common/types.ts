@@ -15,4 +15,5 @@ export interface ButtonProps {
     name?: string;
     children: React.ReactNode;
     onClick?: (e?: any) => void;
+    disabled: boolean
 }
