@@ -410,4 +410,90 @@ describe("GET /getLinkEncryption/:shortcode", () => {
     });
 });
 
+describe("GET /getUserLinks/:userid", () => {
+    test("Success 200", async () => {
+        const url1 = "google.com";
+        const shortCode1 = "randomShortCode1";
+        const hasProtocol1 = false;
 
+        const url2 = "facebook.com";
+        const shortCode2 = "randomShortCode2";
+        const hasProtocol2 = false;
+
+        const url3 = "youtube.com";
+        const shortCode3 = "randomShortCode3";
+        const hasProtocol3 = false;
+
+        const userId = "randomUserId";
+        const email = "randomEmail@email.com";
+
+        await db.query('INSERT INTO Users (userId, email) VALUES ($1, $2)', [userId, email])
+                    .catch(err => {
+                        throw new Error(`User creation error: ${err.stack}`);
+                    });
+
+        await  db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol, userId) VALUES ($1, $2, $3, $4)', 
+                    [shortCode1, url1, hasProtocol1, userId])
+                    .catch(err => {
+                        throw new Error(`Link 1 creation error: ${err.stack}`);
+                    });
+
+        await  db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol, userId) VALUES ($1, $2, $3, $4)', 
+                    [shortCode2, url2, hasProtocol2, userId])
+                    .catch(err => {
+                        throw new Error(`Link 2 creation error: ${err.stack}`);
+                    });
+
+        await  db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol, userId) VALUES ($1, $2, $3, $4)', 
+                    [shortCode3, url3, hasProtocol3, userId])
+                    .catch(err => {
+                        throw new Error(`Link 3 creation error: ${err.stack}`);
+                    });
+
+        const response = await request(app)
+                .get(`/getUserLinks/${userId}`);
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body.length).toBe(3);
+        
+        expect(response.body[0]).toHaveProperty("isLocked");
+        expect(response.body[0].isLocked).toBe(false);
+        expect(response.body[0]).toHaveProperty("originalurl");
+        expect(response.body[0].originalurl).toBe(url1);
+        expect(response.body[0]).toHaveProperty("shortcode");
+        expect(response.body[0].shortcode).toBe(shortCode1);
+        expect(response.body[0]).toHaveProperty("hasprotocol");
+        expect(response.body[0].hasprotocol).toBe(hasProtocol1);
+
+        expect(response.body[1]).toHaveProperty("isLocked");
+        expect(response.body[1].isLocked).toBe(false);
+        expect(response.body[1]).toHaveProperty("originalurl");
+        expect(response.body[1].originalurl).toBe(url2);
+        expect(response.body[1]).toHaveProperty("shortcode");
+        expect(response.body[1].shortcode).toBe(shortCode2);
+        expect(response.body[1]).toHaveProperty("hasprotocol");
+        expect(response.body[1].hasprotocol).toBe(hasProtocol2);
+
+        expect(response.body[2]).toHaveProperty("isLocked");
+        expect(response.body[2].isLocked).toBe(false);
+        expect(response.body[2]).toHaveProperty("originalurl");
+        expect(response.body[2].originalurl).toBe(url3);
+        expect(response.body[2]).toHaveProperty("shortcode");
+        expect(response.body[2].shortcode).toBe(shortCode3);
+        expect(response.body[2]).toHaveProperty("hasprotocol");
+        expect(response.body[2].hasprotocol).toBe(hasProtocol3);
+    });
+
+    test("Error retrieving user links 500", async () => {
+        const userId = "randomUserId";
+
+        await db.query('DROP TABLE Clicks, Links').catch(err => {
+            throw new Error('Error dropping Links table from test db');
+        });
+
+        const response = await request(app)
+                .get(`/getUserLinks/${userId}`);
+        
+        expect(response.statusCode).toBe(500);
+    });
+});
