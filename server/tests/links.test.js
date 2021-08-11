@@ -22,6 +22,14 @@ beforeEach(async () => {
                 cipherText  text,
                 iv          text,
                 salt        text
+            );
+        
+        CREATE TABLE IF NOT EXISTS
+            Clicks (
+                clickId     serial,
+                clickDate   date DEFAULT CURRENT_DATE,
+                shortCode   text REFERENCES Links(shortCode)
+                    ON DELETE CASCADE
             );`;
 
     await db.query(queryText)
@@ -35,7 +43,7 @@ beforeEach(async () => {
 
 afterEach(async () => {
     const queryText = 
-        `DROP TABLE IF EXISTS Users, Links;`;
+        `DROP TABLE IF EXISTS Users, Links, Clicks;`;
 
     await db.query(queryText)
         .then((res) => {
@@ -51,7 +59,6 @@ afterAll(() => {
 });
 
 describe("POST /createShortUrl", () => {
-    
 
     test("Non-User, No Protocol, Success 201", async () => {
         const url = "google.com";
@@ -247,7 +254,7 @@ describe("POST /createShortUrl", () => {
     });
 
     test("DB insert error 500", async () => {
-        await db.query('DROP TABLE Links').catch(err => {
+        await db.query('DROP TABLE Clicks, Links').catch(err => {
             throw new Error('Error dropping Links table from test db');
         });
 
@@ -261,6 +268,88 @@ describe("POST /createShortUrl", () => {
         expect(response.statusCode).toBe(500);
         expect(response.error.text).toBe("\"Could not save url given\"");
     });
+});
+
+describe("GET /getOriginalUrl/:shortcode", () => {
+        test("No Protocol, Success 200", async () => {
+            const url = "google.com";
+            const shortCode = "randomShortCode";
+            const hasProtocol = false;
+
+            await db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol) VALUES ($1, $2, $3)', 
+                        [shortCode, url, hasProtocol],).catch(err => {
+                            throw new Error('Error inserting link');
+                        })
+
+            const response = await request(app)
+                                .get(`/getOriginalUrl/${shortCode}`);
+            
+            expect(response.statusCode).toBe(200);
+            expect(response.body).toHaveProperty("originalUrl");
+            expect(response.body.originalUrl).toBe("//" + url);
+        });
+
+        test("Has Protocol, Success 200", async () => {
+            const url = "https://google.com";
+            const shortCode = "randomShortCode";
+            const hasProtocol = true;
+
+            await db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol) VALUES ($1, $2, $3)', 
+                        [shortCode, url, hasProtocol],).catch(err => {
+                            throw new Error('Error inserting link');
+                        })
+
+            const response = await request(app)
+                                .get(`/getOriginalUrl/${shortCode}`);
+            
+            expect(response.statusCode).toBe(200);
+            expect(response.body).toHaveProperty("originalUrl");
+            expect(response.body.originalUrl).toBe(url);
+        });
+
+        test("Error Retrieving Original URL 500", async () => {
+            const shortCode = "randomShortCode";
+
+            await db.query('DROP TABLE Clicks, Links').catch(err => {
+                throw new Error('Error dropping Links table from test db');
+            });
+
+            const response = await request(app)
+                                .get(`/getOriginalUrl/${shortCode}`);
+            
+            expect(response.statusCode).toBe(500);
+        });
+
+        test("No URL associated with given short code 500", async () => {
+            const shortCode = "randomShortCode";
+
+            const response = await request(app)
+                                .get(`/getOriginalUrl/${shortCode}`);
+            
+            expect(response.statusCode).toBe(404);
+        });
+
+        test("Click not created, Success 200", async () => {
+            const url = "google.com";
+            const shortCode = "randomShortCode";
+            const hasProtocol = false;
+
+            await db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol) VALUES ($1, $2, $3)', 
+                        [shortCode, url, hasProtocol],).catch(err => {
+                            throw new Error('Error inserting link');
+                        });
+
+            await db.query('DROP TABLE Clicks').catch(err => {
+                throw new Error('Error dropping Clicks table from test db');
+            });
+
+            const response = await request(app)
+                                .get(`/getOriginalUrl/${shortCode}`);
+            
+            expect(response.statusCode).toBe(200);
+            expect(response.body).toHaveProperty("originalUrl");
+            expect(response.body.originalUrl).toBe("//" + url);
+        });
 });
 
 // describe("GET /goto/:shortcode", () => {
