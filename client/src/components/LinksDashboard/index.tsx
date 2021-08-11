@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 import { UserLink } from './types'
-import { Space, Row, Col } from 'antd'
 import LinksList from '../LinksList'
 import LinkInfo from '../LinkInfo'
 import { DashboardWrapper, StyledRow, StyledCol } from './styles';
 import CenteredSpinner from '../CenteredSpinner';
-import { rxjsService } from '../../util/RxjsService';
 
 interface LinksDashboardProps {
     userLinks: Array<UserLink>,
@@ -36,29 +34,32 @@ const LinksDashboard = ({
         return <CenteredSpinner/>
     }
 
+    const hasNoLinks = !isLoading && userLinks.length === 0;
+
     return (
         <DashboardWrapper>
-        <StyledRow>
-            <StyledCol span={6}>
-                <LinksList 
-                    userLinks={userLinks}
-                    currentLinkIndex={currentLinkIndex}
-                    onSelectLink={(index: number) => {
-                        setCurrentLinkIndex(index);
-                        setIsInfoHidden(true);
-                    }}
-                />
-            </StyledCol>            
-            <StyledCol span={18}>
-                {
-                    (isInfoHidden) ? <div></div>: 
-                    <LinkInfo
-                        userLink={userLinks[currentLinkIndex]}
-                        hasNoLinks={!isLoading && userLinks.length === 0}
+            <StyledRow>
+                <StyledCol xs={10} sm={10} md={10} lg={10} xl={6} xxl={6}>
+                    <LinksList 
+                        hasNoLinks={hasNoLinks}
+                        userLinks={userLinks}
+                        currentLinkIndex={currentLinkIndex}
+                        onSelectLink={(index: number) => {
+                            setCurrentLinkIndex(index);
+                            setIsInfoHidden(true);
+                        }}
                     />
-                }
-            </StyledCol>
-        </StyledRow>
+                </StyledCol>            
+                <StyledCol xs={14} sm={14} md={14} lg={14} xl={18} xxl={18}>
+                    {
+                        (isInfoHidden) ? <div></div>: 
+                        <LinkInfo
+                            userLink={userLinks[currentLinkIndex]}
+                            hasNoLinks={hasNoLinks}
+                        />
+                    }
+                </StyledCol>
+            </StyledRow>
         </DashboardWrapper>
     )
 }

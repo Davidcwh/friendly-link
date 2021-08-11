@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Button, Form, Input, message } from "antd";
+import { Form, Input } from "antd";
 import { useState } from "react";
 import { StyledButton, DrawerWrapper, SumbitButton } from "./styles";
 import Crypto from "../../util/Crypto";

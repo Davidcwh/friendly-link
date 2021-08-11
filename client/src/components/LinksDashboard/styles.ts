@@ -3,6 +3,7 @@ import { Row, Col } from "antd";
 
 export const DashboardWrapper = styled("div")`
     flex: 1;
+    // min-width: 1160px;
 `
 
 export const StyledRow = styled(Row)`

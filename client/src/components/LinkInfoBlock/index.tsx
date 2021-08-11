@@ -3,6 +3,7 @@ import { UserLink } from '../LinksDashboard/types';
 import { Row, Col, Space, Tooltip } from 'antd';
 import { LockFilled } from '@ant-design/icons'
 import { 
+    Wrapper,
     OriginalLinkTitle,
     OriginalLinkSubTitle,
     ShortenLink,
@@ -53,7 +54,7 @@ const LinkInfoBlock = ({
     }, [isShortUrlBlinking]);
 
     return (
-        <>
+        <Wrapper>
             <Row>
                 <div>{`CREATED ${getShortenDate(userLink.datecreated)}`}</div>
                 {userLink.isLocked && 
@@ -88,7 +89,7 @@ const LinkInfoBlock = ({
             </StyledRow>
 
             <StyledDivider/>
-        </>
+        </Wrapper>
     )
 }
 

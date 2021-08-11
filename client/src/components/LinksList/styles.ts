@@ -4,6 +4,11 @@ import { List } from "antd";
 export const ListWrapper = styled("div")<any>`
     overflow-y: auto;
     background: #f5f6f7;
+    // min-width: 320px;
+
+    @media screen and (max-width: 500px) {
+        width: 100vw;
+    }
 
     .ant-list-split .ant-list-item {
         border-bottom: 1px solid #d8d8d8;
@@ -38,4 +43,8 @@ export const ListItemWrapper = styled(List.Item)`
         overflow: hidden; 
     }
     
+`
+
+export const ButtonWrapper = styled("div")`
+    padding: 20px;
 `

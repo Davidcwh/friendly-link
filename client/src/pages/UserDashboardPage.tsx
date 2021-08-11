@@ -13,7 +13,6 @@ const UserDashboardPage = () => {
     const { sub, email } = user;
     // @ts-ignore: Object is possibly 'null'
     const is_first_login = user['http://localhost:3000/is_first_login'];
-    const [createUserStatus, setCreateUserStatus] = useState('pending');
     const [userLinks, setUserLinks] = useState([]);
     const [isLoadingLinks, setIsLoadingLinks] = useState(true);
 
@@ -34,16 +33,15 @@ const UserDashboardPage = () => {
     const createUser = () => {
         API.createUser(sub, email)
             .then(response => {
-                setCreateUserStatus('success')
+                
             }, error => {
-                setCreateUserStatus('fail')
+                console.log(error)
             })
     }
 
     const getUserLinks = () => {
         API.getUserLinks(sub)
             .then(response => {
-                console.log(response.data)
                 // @ts-ignore: Object is possibly 'null'
                 setUserLinks(sortLinksDescDate(response.data))
                 setIsLoadingLinks(false);

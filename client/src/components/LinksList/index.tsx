@@ -1,17 +1,20 @@
-import { List } from "antd";
+import { Empty, List, Space } from "antd";
+import CreateButton from "../CreateButton";
 import { UserLink } from "../LinksDashboard/types";
-import { ListWrapper, ListItemWrapper } from './styles';
+import { ListWrapper, ListItemWrapper, ButtonWrapper } from './styles';
 
 interface LinksListProps {
     userLinks: Array<UserLink>,
     currentLinkIndex: number,
-    onSelectLink: (index: number) => void
+    onSelectLink: (index: number) => void,
+    hasNoLinks: boolean
 }
 
 const LinksList = ({
     userLinks,
     currentLinkIndex,
-    onSelectLink
+    onSelectLink,
+    hasNoLinks
 }: LinksListProps) => {
 
     const getShortenDate = (dateString: string) => {
@@ -22,31 +25,37 @@ const LinksList = ({
     }
 
     return (
-        <ListWrapper style={{height: 'calc(100vh - 90px)'}}>
-            <List
-                size={'large'}
-                dataSource={userLinks}
-                renderItem={(item, index) => {
-                    const backgroundColor = index === currentLinkIndex ? 'white' : '#f5f6f7';
-                    const linkDate = getShortenDate(item.datecreated)
-                    return (
-                        <ListItemWrapper 
-                            style={{
-                                backgroundColor
-                            }}
-                            onClick={() => onSelectLink(index)}>
+        <ListWrapper style={{height: 'calc(100vh - 100px)'}}>
+            {
+                hasNoLinks ? 
+                <ButtonWrapper>
+                    <CreateButton title="CREATE YOUR FIRST LINK"/>
+                </ButtonWrapper>
+                :
+                    <List
+                        size={'large'}
+                        dataSource={userLinks}
+                        renderItem={(item, index) => {
+                            const backgroundColor = index === currentLinkIndex ? 'white' : '#f5f6f7';
+                            const linkDate = getShortenDate(item.datecreated)
+                            return (
+                                <ListItemWrapper 
+                                    style={{
+                                        backgroundColor
+                                    }}
+                                    onClick={() => onSelectLink(index)}>
 
-                            <List.Item.Meta
-                                title={item.originalurl}
-                                description={item.shortUrl}
-                            />
-                            <div>{linkDate}</div>
-                        </ListItemWrapper>
-                    )
-                }}
-            >
+                                    <List.Item.Meta
+                                        title={item.originalurl}
+                                        description={item.shortUrl}
+                                    />
+                                    <div>{linkDate}</div>
+                                </ListItemWrapper>
+                            )
+                        }}
+                    />
+            }
 
-            </List>
         </ListWrapper>
     )
 };

@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { Row, Divider } from 'antd';
 
+export const Wrapper = styled("div")`
+    // min-width: 860px;
+    overflow-x: hidden;
+`
+
 export const OriginalLinkTitle = styled("div")`
     font-family: 'Motiva Sans Light', serif;
     color: #18216d;
