@@ -159,10 +159,10 @@ describe("POST /createShortUrl", () => {
         const userId = "randomUserId";
         const email = "randomEmail@email.com";
 
-        const createUserResponse = await db.query('INSERT INTO Users (userId, email) VALUES ($1, $2)', [userId, email])
-                                                .catch(err => {
-                                                    throw new Error(`User creation error: ${err.stack}`);
-                                                });
+        await db.query('INSERT INTO Users (userId, email) VALUES ($1, $2)', [userId, email])
+                    .catch(err => {
+                        throw new Error(`User creation error: ${err.stack}`);
+                    });
 
         const response = await request(app)
             .post("/createShortUrl")
@@ -352,52 +352,62 @@ describe("GET /getOriginalUrl/:shortcode", () => {
         });
 });
 
-// describe("GET /goto/:shortcode", () => {
-//     test("Success 301 without http protocol", async () => {
-//         const url = "google.com";
-//         const postResponse = await request(app)
-//             .post("/createShortUrl")
-//             .send({
-//                 originalUrl: url
-//             });
+describe("GET /getLinkEncryption/:shortcode", () => {
+    test("Success 200", async () => {
+        const url = "google.com";
+        const shortCode = "randomShortCode";
+        const hasProtocol = false;
+        const cipherText = "randomCipherText";
+        const iv = "randomiv";
+        const salt = "randomSalt";
+        const userId = "randomUserId";
+        const email = "randomEmail@email.com";
+
+        await db.query('INSERT INTO Users (userId, email) VALUES ($1, $2)', [userId, email])
+                    .catch(err => {
+                        throw new Error(`User creation error: ${err.stack}`);
+                    });
+
+        await  db.query('INSERT INTO Links (shortCode, originalUrl, hasProtocol, userId, cipherText, iv, salt) VALUES ($1, $2, $3, $4, $5, $6, $7)', 
+                    [shortCode, url, hasProtocol, userId, cipherText, iv, salt])
+                    .catch(err => {
+                        throw new Error(`Link creation error: ${err.stack}`);
+                    });
+
+        const response = await request(app)
+                    .get(`/getLinkEncryption/${shortCode}`);
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toHaveProperty("encryption");
+        expect(response.body.encryption).toHaveProperty("cipherText");
+        expect(response.body.encryption.cipherText).toBe(cipherText);
+        expect(response.body.encryption).toHaveProperty("iv");
+        expect(response.body.encryption.iv).toBe(iv);
+        expect(response.body.encryption).toHaveProperty("salt");
+        expect(response.body.encryption.salt).toBe(salt);
+    });
+
+    test("Error retrieving link encryption data 500", async () => {
+        const shortCode = "randomShortCode";
+
+        await db.query('DROP TABLE Clicks, Links').catch(err => {
+            throw new Error('Error dropping Links table from test db');
+        });
+
+        const response = await request(app)
+                            .get(`/getLinkEncryption/${shortCode}`);
         
-//         expect(postResponse.statusCode).toBe(201);
-//         const shortCode = postResponse.body.shortCode;
+        expect(response.statusCode).toBe(500);
+    });
 
-//         const getResponse = await request(app).get(`/goto/${shortCode}`);
-//         expect(getResponse.statusCode).toBe(301);
-//     });
+    test("No URL associated with given short code 404", async () => {
+        const shortCode = "randomShortCode";
 
-//     test("Success 301 with http protocol", async () => {
-//         const url = "https://www.google.com/";
-//         const postResponse = await request(app)
-//             .post("/createShortUrl")
-//             .send({
-//                 originalUrl: url
-//             });
+        const response = await request(app)
+                            .get(`/getLinkEncryption/${shortCode}`);
         
-//         expect(postResponse.statusCode).toBe(201);
-//         const shortCode = postResponse.body.shortCode;
+        expect(response.statusCode).toBe(404);
+    });
+});
 
-//         const getResponse = await request(app).get(`/goto/${shortCode}`);
-//         expect(getResponse.statusCode).toBe(301);
-//     });
 
-//     test("No Original URL Found 404", async () => {
-//         const response = await request(app).get('/goto/nonsense');
-//         expect(response.statusCode).toBe(404);
-//         expect(response.error.text).toBe("No URL associated with given short code");
-//     });
-
-//     test("No Original URL Found 404", async () => {
-//         db.query('DROP TABLE Links', async (err, res) => {
-//             if(err) {
-//                 throw new Error('Error dropping Links table from test db')
-//             }
-            
-//             const response = await request(app).get('/goto/nonsense');
-//             expect(response.statusCode).toBe(500);
-//             expect(response.error.text).toBe("\"Error retrieving original URL\"");
-//         });
-//     });
-// });
