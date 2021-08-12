@@ -1,7 +1,5 @@
 import axios from 'axios';
 const serverUrl = process.env.REACT_APP_SERVER_URL;
-console.log(serverUrl)
-console.log(JSON.stringify(process.env))
 
 const config = {
     headers: {
