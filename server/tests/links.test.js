@@ -1,6 +1,7 @@
 const request = require("supertest");
 const app = require("../server");
 const db = require("../models/db");
+const Links = require('../models/links.model')
 
 beforeEach(async () => {
     const queryText = 
@@ -56,6 +57,24 @@ afterEach(async () => {
 
 afterAll(() => {
     db.end();
+});
+
+describe("Links Model", () => {
+    test("Test Constructor", () => {
+        const shortCode = "randomShortCode";
+        const originalUrl = "google.com";
+        const hasProtocol = false;
+        const userId = "randomUserId";
+        const dateCreated = new Date().toJSON().slice(0,10);
+        
+
+        const cipherText = "randomCipherText";
+        const iv = "randomiv";
+        const salt = "randomSalt";
+        const encryption = { cipherText, iv, salt };
+
+        Links({ shortCode, originalUrl, hasProtocol, userId, dateCreated, encryption});
+    })
 });
 
 describe("POST /createShortUrl", () => {
@@ -253,7 +272,7 @@ describe("POST /createShortUrl", () => {
         expect(response.statusCode).toBe(500);
     });
 
-    test("DB insert error 500", async () => {
+    test("Non-User, No Password, DB insert error 500", async () => {
         await db.query('DROP TABLE Clicks, Links').catch(err => {
             throw new Error('Error dropping Links table from test db');
         });
@@ -263,6 +282,47 @@ describe("POST /createShortUrl", () => {
                 .post("/createShortUrl")
                 .send({
                     originalUrl: url
+                });
+
+        expect(response.statusCode).toBe(500);
+        expect(response.error.text).toBe("\"Could not save url given\"");
+    });
+
+    test("User, No Password, DB insert error 500", async () => {
+        await db.query('DROP TABLE Clicks, Links').catch(err => {
+            throw new Error('Error dropping Links table from test db');
+        });
+
+        const userId = "randomUserId";
+        const url = "https://google.com";
+        const response = await request(app)
+                .post("/createShortUrl")
+                .send({
+                    originalUrl: url,
+                    userId
+                });
+
+        expect(response.statusCode).toBe(500);
+        expect(response.error.text).toBe("\"Could not save url given\"");
+    });
+
+    test("User, Has Password, DB insert error 500", async () => {
+        await db.query('DROP TABLE Clicks, Links').catch(err => {
+            throw new Error('Error dropping Links table from test db');
+        });
+
+        const userId = "randomUserId";
+        const url = "https://google.com";
+        const cipherText = "randomCipherText";
+        const iv = "randomiv";
+        const salt = "randomSalt";
+        const encryption = JSON.stringify({ cipherText, iv, salt });
+        const response = await request(app)
+                .post("/createShortUrl")
+                .send({
+                    originalUrl: url,
+                    userId,
+                    encryption
                 });
 
         expect(response.statusCode).toBe(500);
