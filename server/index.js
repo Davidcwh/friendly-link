@@ -1,5 +1,5 @@
 const https = require('https');
-const fs = require('fs'),
+const fs = require('fs');
 
 const app = require("./server");
 var privateKey = fs.readFileSync( '/etc/letsencrypt/live/frnd.link/privkey.pem' );
