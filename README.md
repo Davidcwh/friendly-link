@@ -1,9 +1,13 @@
 ![header](media/readmeheader.jpeg)
 
 # FriendlyLink: About the Project
+[![Codecov Coverage](https://img.shields.io/codecov/c/github/Davidcwh/friendly-link/coverage.svg?style=flat-square)](https://codecov.io/gh/Davidcwh/friendly-link/)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[![Build Status](https://app.travis-ci.com/Davidcwh/friendly-link.svg?branch=main)](https://app.travis-ci.com/Davidcwh/friendly-link)
+
 FriendlyLink is a URL management platform that is made up of a frontend React web app and a backend Express JS server. 
 
 [Click here to try out the current deployed version](https://frnd.link/)
+
 
 ## Motivation For Project
 This project serves as my first fullstack project, and a learning experience in using cloud services like [DigitalOcean](https://www.digitalocean.com/). Furthermore, there was emphasis on using CI/CD tools like Travis in order to effortlessly integrate and deliver code to production.
@@ -26,7 +30,8 @@ This project serves as my first fullstack project, and a learning experience in 
 * [Travis CI](https://www.travis-ci.com/)
 
 ## Frontend Web App
-Used Create React App, components written in React and Typescript, and styled using styled-components. Authentication and Account User Management handled using Auth0.
+Used Create React App, components written in React and Typescript, and styled using styled-components.   
+Authentication and Account User Management handled using Auth0.
 
 ### Landing Page
 ![Landing page](media/landingpage.gif)
@@ -35,20 +40,24 @@ Used Create React App, components written in React and Typescript, and styled us
 ![User Dashboard](media/userdashboard.gif)
 
 ## Backend Server
-Used Express JS framework, connects to postgresql database using node-postgres module. API thoroughly tested using Jest.
+Used Express JS framework, connects to postgresql database using node-postgres module.   
+API thoroughly tested using Jest.
 
 ## Features
 
 ### Shorten URL
 Shorten a super long URL into a friendly, easy to share link.
+
 ![shorten url](media/shortenurl.gif)
 
 ### Clicks Visualized
 The number of clicks on any shortened link is recorded and visualized in a graph for users to spot trends. (Feature available for account users only)
+
 ![graph](media/graph.gif)
 
 ### Lock Links
 Set a password to a shortened link to control who has access to the URL. (Feature available for account users only)
+
 ![password](media/password.gif)
 
 ## Challenges Faced
